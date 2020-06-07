@@ -1,5 +1,5 @@
-# React Seed
-A todo application developed using react and hooks.
+# Todo
+A to-do app can be a great reminder or starting point when it comes to CRUD in web development. Being able to read information, create new information, update existing information, and delete information can be powerful in any application.
 
 
 ## Content
