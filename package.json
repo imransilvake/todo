@@ -1,0 +1,43 @@
+{
+    "name": "my-todos",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "REACT_APP_ENV=development react-scripts start",
+        "build": "sh -ac './src/environment/ .env.${REACT_APP_ENV}; react-scripts build'",
+        "build:development": "REACT_APP_ENV=development npm run build",
+        "build:next": "REACT_APP_ENV=next npm run build",
+        "build:production": "REACT_APP_ENV=production npm run build",
+        "serve": "serve -s build",
+        "lint:scss": "stylelint '**/*.scss'; exit 0",
+        "lint:es": "eslint --ext .jsx --ext .js src/",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "dependencies": {
+        "@imransilvake/scss-framework": "^2.3.2",
+        "classnames": "^2.2.6",
+        "i18next": "^19.4.5",
+        "i18next-browser-languagedetector": "^4.2.0",
+        "md5": "^2.2.1",
+        "prop-types": "latest",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-i18next": "^11.5.0",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "3.4.1"
+    },
+    "devDependencies": {
+        "eslint-config-airbnb": "^18.1.0",
+        "eslint-plugin-react": "^7.20.0",
+        "node-sass": "^4.14.1",
+        "stylelint": "^13.6.0",
+        "stylelint-order": "^4.1.0"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ]
+}
