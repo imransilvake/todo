@@ -1,5 +1,5 @@
 # React Seed
-React seed is using create-react-app, and it incorporates many best practices typically needed in large apps.
+A todo application developed using react and hooks.
 
 
 ## Content
