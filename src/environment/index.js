@@ -14,5 +14,4 @@ const ENV = () => {
 			return development;
 	}
 };
-
 export default ENV();

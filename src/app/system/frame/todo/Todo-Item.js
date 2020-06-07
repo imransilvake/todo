@@ -18,7 +18,7 @@ function TodoItem({ todo, index, completeTodo, removeTodo }) {
 		>
 			{todo.text}
 			<div>
-				<button type="button" onClick={() => completeTodo(index)}>Complete</button>
+				<button type="button" onClick={() => !todo.isCompleted && completeTodo(index)}>Complete</button>
 				<button type="button" onClick={() => removeTodo(index)}>close</button>
 			</div>
 		</div>

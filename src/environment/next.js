@@ -1,6 +1,6 @@
 const next = {
 	ROUTING: {
-		HOME: '/'
+		TODO: '/'
 	}
 };
 
