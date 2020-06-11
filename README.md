@@ -10,11 +10,10 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 
 
 ## Libraries and Frameworks
-#### Internal
-- [X] [SCSS Framework](https://github.com/imransilvake/SCSS-Framework)
 
 #### External 
 - [X] [Create React App](https://github.com/facebook/create-react-app)
+- [X] [Ant Design](https://ant.design)
 - [X] [Translation](https://github.com/i18next/react-i18next)
 
 

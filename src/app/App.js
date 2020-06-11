@@ -1,23 +1,19 @@
 // react
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
 
 // app
 import AppRouter from './AppRouter';
 
-class App extends Component {
-	render() {
-		return (
-			<BrowserRouter>
-				{/* Header */}
+function App() {
+	return (
+		<BrowserRouter>
+			{/* Header */}
 
-				<AppRouter/>
+			<AppRouter/>
 
-				{/* Footer */}
-			</BrowserRouter>
-		);
-	}
+			{/* Footer */}
+		</BrowserRouter>
+	);
 }
-
-export default withTranslation()(App);
+export default App;

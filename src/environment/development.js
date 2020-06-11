@@ -3,5 +3,4 @@ const development = {
 		TODO: '/'
 	}
 };
-
 export default development;

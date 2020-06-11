@@ -3,5 +3,4 @@ const next = {
 		TODO: '/'
 	}
 };
-
 export default next;
