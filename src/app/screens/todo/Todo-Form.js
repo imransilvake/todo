@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // app
-import TodoEnum from './Todo.enum'
+import { TodoCrudEnum } from './Todo.enum'
 import { Button, DatePicker, Form, Input } from 'antd';
 import { dateInMoment } from '../../utilities/helpers/Date'
 
@@ -13,8 +13,14 @@ import { dateInMoment } from '../../utilities/helpers/Date'
  * @constructor
  */
 function TodoForm({ todoCrud }) {
+	console.log('Todo Form');
+
 	// hook: value
-	const initialState = { text: '', date: dateInMoment() };
+	const initialState = {
+		text: '',
+		createdDate: dateInMoment(),
+		expireDate: dateInMoment()
+	};
 	const [state, setState] = useState(initialState);
 
 	/**
@@ -36,7 +42,7 @@ function TodoForm({ todoCrud }) {
 	const handleDateChange = (event) => {
 		setState({
 			...state,
-			date: event
+			expireDate: event
 		});
 	}
 
@@ -45,19 +51,19 @@ function TodoForm({ todoCrud }) {
      */
 	const handleSubmit = () => {
 		// return on empty
-		if (!state.text || !state.date) return;
+		if (!state.text || !state.expireDate) return;
 
 		// add a todo
-		todoCrud(state, TodoEnum.TODO_ADD);
+		todoCrud(state, TodoCrudEnum.TODO_ADD);
 
 		// set initial state
 		setState(initialState);
 	};
 
 	return (
-		<Form onFinish={handleSubmit}>
-			{/* text */}
-			<Form.Item>
+		<Form onFinish={handleSubmit} className="td-form">
+			{/* Text */}
+			<Form.Item className="td-input">
 				<Input
 					id="text"
 					type="text"
@@ -68,14 +74,17 @@ function TodoForm({ todoCrud }) {
 				/>
 			</Form.Item>
 
-			{/* date */}
-			<Form.Item>
+			{/* Date */}
+			<Form.Item className="td-date">
 				<DatePicker
 					id="date"
 					name="date"
 					type="date"
-					value={state.date}
+					value={state.expireDate}
 					onChange={handleDateChange}
+					disabledDate={(current) => {
+						return current && current < dateInMoment().subtract(1, 'day');
+					}}
 				/>
 			</Form.Item>
 

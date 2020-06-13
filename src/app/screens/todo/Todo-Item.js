@@ -2,8 +2,8 @@
 import React from 'react'
 
 // app
-import TodoEnum from './Todo.enum'
-import { Button } from 'antd'
+import { TodoCrudEnum } from './Todo.enum'
+import { Button, Divider } from 'antd'
 import { dateFormat1 } from '../../utilities/helpers/Date'
 
 /**
@@ -15,41 +15,47 @@ import { dateFormat1 } from '../../utilities/helpers/Date'
  * @constructor
  */
 function TodoItem({ todo, index, todoCrud }) {
+	console.log('Todo Item');
 	return (
-		<div
-			className="td-todo-item"
-			style={{ textDecoration: todo.isCompleted ? 'line-through' : '' }}
-		>
-			{todo.text}
-			<div>
-				{/* date */}
-				{!!todo.date && (
-					<p>{ dateFormat1(todo.date) }</p>
-				)}
+		<>
+			{/* Divider */}
+			<Divider plain>Text</Divider>
 
-				{/* complete a todo */}
-				{!todo.isCompleted && (
-					<Button
-						type="button"
-						onClick={() => !todo.isCompleted && todoCrud(index, TodoEnum.TODO_COMPLETE)}
-					>
-						Complete
+			{/* Item */}
+			<div className="td-todo-item">
+				{todo.text}
+				<div>
+					{/* created date */}
+					{!!todo.createdDate && (
+						<p>{ dateFormat1(todo.createdDate) }</p>
+					)}
+
+					{/* expired date */}
+					{!!todo.expireDate && (
+						<p>{ dateFormat1(todo.expireDate) }</p>
+					)}
+
+					{/* complete a todo */}
+					{!todo.isCompleted && (
+						<Button type="button" onClick={() => todoCrud(index, TodoCrudEnum.TODO_COMPLETE)}>
+							Complete
+						</Button>
+					)}
+
+					{/* undo a todo */}
+					{todo.isCompleted && (
+						<Button type="button" onClick={() => todoCrud(index, TodoCrudEnum.TODO_UNDO)}>
+							Undo
+						</Button>
+					)}
+
+					{/* remove a todo */}
+					<Button type="button" onClick={() => todoCrud(index, TodoCrudEnum.TODO_DELETE)}>
+						remove
 					</Button>
-				)}
-
-				{/* undo a todo */}
-				{todo.isCompleted && (
-					<Button type="button" onClick={() => todoCrud(index, TodoEnum.TODO_UNDO)}>
-						Undo
-					</Button>
-				)}
-
-				{/* remove a todo */}
-				<Button type="button" onClick={() => todoCrud(index, TodoEnum.TODO_DELETE)}>
-					remove
-				</Button>
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 export default TodoItem;

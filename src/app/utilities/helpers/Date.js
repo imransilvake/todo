@@ -6,7 +6,7 @@ import moment from 'moment'
  * @param date
  * @returns {moment.Moment}
  */
-function dateInMoment(date) {
+const dateInMoment = (date) => {
 	return !date ? moment() : moment(date);
 }
 
@@ -15,7 +15,7 @@ function dateInMoment(date) {
  * @param date
  * @returns {string}
  */
-function dateInString(date) {
+const dateInString = (date) => {
 	return date.toString();
 }
 
@@ -25,7 +25,7 @@ function dateInString(date) {
  * @param date
  * @returns {string}
  */
-function dateFormat1(date) {
+const dateFormat1 = (date) => {
 	const d = !date ? moment() : date;
 	return dateInString(moment(d).format('MM/DD/YYYY'));
 }
@@ -36,15 +36,36 @@ function dateFormat1(date) {
  * @param date
  * @returns {string}
  */
-function dateFormat2(date) {
+const dateFormat2 = (date) => {
 	const d = !date ? moment() : date;
 	return dateInString(moment(d).format('DD/MM/YYYY'));
 }
 
-// export functions
+/**
+ * validate: is same date
+ * @param date
+ * @param granularity
+ * @returns {boolean}
+ */
+const dateIsSame = (date, granularity) => {
+	return moment(date).isSame(moment(), granularity)
+}
+
+/**
+ * validate: is before date
+ * @param date
+ * @param granularity
+ * @returns {boolean}
+ */
+const dateIsBefore = (date, granularity) => {
+	return moment(date).isBefore(moment(), granularity)
+}
+
 export {
 	dateInMoment,
 	dateInString,
 	dateFormat1,
-	dateFormat2
+	dateFormat2,
+	dateIsSame,
+	dateIsBefore
 };
