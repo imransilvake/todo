@@ -4,7 +4,7 @@ import React from 'react';
 // app
 import { useTranslation } from 'react-i18next'
 
-function Error404() {
+const Error404 = () => {
 	// hook: tranlation
 	const { t } = useTranslation();
 

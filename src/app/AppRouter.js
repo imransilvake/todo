@@ -7,7 +7,7 @@ import ENV from '../environment/index'
 import Error404 from './screens/404/Error404'
 import Todo from './screens/todo/Todo'
 
-function AppRouter() {
+const AppRouter = () => {
 	return (
 		<Switch>
 			<Route exact path={ENV().ROUTING.TODO} component={Todo}/>

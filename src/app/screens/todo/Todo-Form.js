@@ -12,15 +12,15 @@ import { dateInMoment } from '../../utilities/helpers/Date'
  * @returns {*}
  * @constructor
  */
-function TodoForm({ todoCrud }) {
-	console.log('Todo Form');
-
-	// hook: value
+const TodoForm = ({ todoCrud }) => {
+	// initial state
 	const initialState = {
 		text: '',
 		createdDate: dateInMoment(),
 		expireDate: dateInMoment()
 	};
+
+	// hook: value
 	const [state, setState] = useState(initialState);
 
 	/**

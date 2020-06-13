@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 // app
 import AppRouter from './AppRouter';
 
-function App() {
+const App = () => {
 	return (
 		<BrowserRouter>
 			{/* Header */}

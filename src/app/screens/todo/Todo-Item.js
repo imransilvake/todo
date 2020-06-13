@@ -14,7 +14,7 @@ import { dateFormat1 } from '../../utilities/helpers/Date'
  * @returns {*}
  * @constructor
  */
-function TodoItem({ todo, index, todoCrud }) {
+const TodoItem = ({ todo, index, todoCrud }) => {
 	console.log('Todo Item');
 	return (
 		<>
