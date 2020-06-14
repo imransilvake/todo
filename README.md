@@ -5,14 +5,15 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 ## Content
 - [X] CRUD: Create, Read, Update, and Delete
 - [X] Implemented using React Hooks
-- [ ] Connect Firebase database to fetch stored todo list.
-- [ ] Support Internationalization (i18n)
+- [X] Connect Firebase database to fetch stored todo list.
+- [ ] Layout Todo
 
 
 ## Libraries and Frameworks
 
 #### External 
 - [X] [Create React App](https://github.com/facebook/create-react-app)
+- [X] [Firebase](https://firebase.google.com/)
 - [X] [Ant Design](https://ant.design)
 - [X] [Moment](https://ant.design)
 - [X] [Translation](https://github.com/i18next/react-i18next)
