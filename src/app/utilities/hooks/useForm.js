@@ -1,15 +1,18 @@
 // react
-import { useState } from 'react';
+import { useState } from 'react'
 
 /**
  * custom hook: useForm
  * @param initialState
+ * @param formValidation
  * @param submitCallBack
- * @returns {{handleSubmit: handleSubmit, handleChange: handleChange, values: {}}}
+ * @returns {*}
  */
-const useForm = (initialState, submitCallBack) => {
+const useForm = (initialState, formValidation, submitCallBack) => {
 	// hook: values
 	const [values, setValues] = useState(initialState);
+	const [errors, setErrors] = useState(0);
+	const [loader, setLoader] = useState(false);
 
 	/**
 	 * handle value change
@@ -19,11 +22,18 @@ const useForm = (initialState, submitCallBack) => {
 		// destruct
 		const { name, value } = event.target;
 
-		// set state
-		setValues({
+		// payload
+		const payload = {
 			...values,
 			[name]: value
-		});
+		};
+
+		// set values
+		setValues(payload);
+
+		// set errors
+		const validateErrors = formValidation(payload);
+		setErrors(validateErrors);
 	}
 
 	/**
@@ -32,28 +42,44 @@ const useForm = (initialState, submitCallBack) => {
 	 * @param name
 	 */
 	const handleDateChange = (date, name) => {
-		setValues({
+		// payload
+		const payload = {
 			...values,
 			[name]: date
-		});
+		};
+
+		// set values
+		setValues(payload);
+
+		// set errors
+		const validateErrors = formValidation(payload);
+		setErrors(validateErrors);
 	}
 
 	/**
 	 * handle submit
 	 */
 	const handleSubmit = () => {
+		// start loader
+		setLoader(true);
+
 		// callback
 		submitCallBack();
 
 		// initial state
 		setValues(initialState);
+
+		// stop loader
+		setLoader(false);
 	}
 
 	return {
-		values,
 		handleChange,
 		handleDateChange,
-		handleSubmit
+		handleSubmit,
+		values,
+		errors,
+		loader
 	}
 }
 export default useForm;

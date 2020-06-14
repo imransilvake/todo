@@ -147,7 +147,7 @@ const Todo = () => {
 				break;
 			case TodoFilterEnum.FILTER_PAST:
 				newTodoList.filtered = newTodoList.original.filter(
-					(t) => dateIsBefore(fbTimestampToDatetime(t.expireDate.seconds), 'day')
+					(t) => !t.isCompleted && dateIsBefore(fbTimestampToDatetime(t.expireDate.seconds), 'day')
 				);
 				break;
 			case TodoFilterEnum.FILTER_COMPLETED:

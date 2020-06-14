@@ -6,6 +6,7 @@ import { TodoCrudEnum } from './Todo.enum';
 import { Button, DatePicker, Form, Input } from 'antd';
 import { dateInMoment, fbDatetimeToTimestamp } from '../../utilities/helpers/Date';
 import useForm from '../../utilities/hooks/useForm';
+import TodoFormValidation from './Todo-Form-Validations'
 
 /**
  * form: to add a new item to the list
@@ -23,14 +24,16 @@ const TodoForm = ({ todoApplyOperation }) => {
 	};
 
 	// hook: useForm
-	const { values, handleChange, handleDateChange, handleSubmit } = useForm(initialState, () => formSubmit());
+	const { handleChange, handleDateChange, handleSubmit, values, errors, loader } = useForm(
+		initialState, TodoFormValidation, () => formSubmit()
+	);
 
 	/**
-	 * validate form
+	 * check form state
 	 * @returns {boolean}
 	 */
-	const formValidation = () => {
-		return !values.text || !values.expireDate;
+	const formValid = () => {
+		return !(errors === 0 || Object.keys(errors).length > 0 || loader);
 	}
 
 	/**
@@ -39,51 +42,61 @@ const TodoForm = ({ todoApplyOperation }) => {
 	 * clear the form
      */
 	const formSubmit = () => {
-		// form payload
-		const formPayload = {
+		// item payload
+		const payload = {
 			...values,
 			createdDate: fbDatetimeToTimestamp(),
 			expireDate: fbDatetimeToTimestamp(values.expireDate)
 		};
 
 		// add a new item
-		todoApplyOperation(formPayload, TodoCrudEnum.TODO_ADD);
+		todoApplyOperation(payload, TodoCrudEnum.TODO_ADD);
 	}
 
 	return (
-		<Form onFinish={handleSubmit} className="td-form">
-			{/* Text */}
-			<Form.Item className="td-input">
-				<Input
-					id="text"
-					type="text"
-					name="text"
-					value={values.text}
-					onChange={handleChange}
-				/>
-			</Form.Item>
+		<>
+			<Form onFinish={handleSubmit} className="td-form">
+				{/* Text */}
+				<Form.Item className="td-input">
+					<Input
+						id="text"
+						type="text"
+						name="text"
+						value={values.text}
+						onChange={handleChange}
+						onBlur={handleChange}
+					/>
+				</Form.Item>
 
-			{/* Date */}
-			<Form.Item className="td-date">
-				<DatePicker
-					id="date"
-					type="date"
-					name="date"
-					onChange={(e) => handleDateChange(e, 'expireDate')}
-					value={values.expireDate}
-					disabledDate={(current) => {
-						return current && current < dateInMoment().subtract(1, 'day');
-					}}
-				/>
-			</Form.Item>
+				{/* Date */}
+				<Form.Item className="td-date">
+					<DatePicker
+						id="date"
+						type="date"
+						name="date"
+						onChange={(e) => handleDateChange(e, 'expireDate')}
+						value={values.expireDate}
+						disabledDate={(current) => {
+							return current && current < dateInMoment().subtract(1, 'day');
+						}}
+					/>
+				</Form.Item>
 
-			{/* Submit */}
-			<Form.Item>
-				<Button type="primary" htmlType="submit" disabled={formValidation()}>
-					Submit
-				</Button>
-			</Form.Item>
-		</Form>
+				{/* Submit */}
+				<Form.Item>
+					<Button type="primary" htmlType="submit" disabled={!formValid()}>
+						Submit
+					</Button>
+				</Form.Item>
+			</Form>
+
+			{/* Errors */}
+			{
+				Object.values(errors).map((error, index) => (
+					<p key={index}>{error}</p>
+				))
+			}
+		</>
 	);
 }
 export default TodoForm;
