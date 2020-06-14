@@ -7,14 +7,14 @@ import { Button, Divider } from 'antd'
 import { dateFormat, fbTimestampToDatetime } from '../../utilities/helpers/Date'
 
 /**
- * display a single todo item
+ * display a single item
  * @param todo
  * @param index
- * @param todoCrud
+ * @param todoApplyOperation
  * @returns {*}
  * @constructor
  */
-const TodoItem = ({ todo, index, todoCrud }) => {
+const TodoItem = ({ todo, index, todoApplyOperation }) => {
 	return (
 		<>
 			{/* Divider */}
@@ -34,22 +34,22 @@ const TodoItem = ({ todo, index, todoCrud }) => {
 						<p>{ dateFormat(fbTimestampToDatetime(todo.expireDate.seconds)) }</p>
 					)}
 
-					{/* complete a todo */}
+					{/* action: complete */}
 					{!todo.isCompleted && (
-						<Button type="button" onClick={() => todoCrud({ ...todo, index }, TodoCrudEnum.TODO_COMPLETE)}>
+						<Button type="button" onClick={() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_COMPLETE)}>
 							Complete
 						</Button>
 					)}
 
-					{/* undo a todo */}
+					{/* action: undo */}
 					{todo.isCompleted && (
-						<Button type="button" onClick={() => todoCrud({ ...todo, index }, TodoCrudEnum.TODO_UNDO)}>
+						<Button type="button" onClick={() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_UNDO)}>
 							Undo
 						</Button>
 					)}
 
-					{/* remove a todo */}
-					<Button type="button" onClick={() => todoCrud({ ...todo, index }, TodoCrudEnum.TODO_DELETE)}>
+					{/* action: remove a specific item */}
+					<Button type="button" onClick={() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_DELETE)}>
 						remove
 					</Button>
 				</div>

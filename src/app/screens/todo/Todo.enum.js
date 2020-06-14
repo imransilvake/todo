@@ -1,5 +1,5 @@
 /**
- * Todo CRUD Operations
+ * Enum: CRUD Operations
  * @type {{TODO_ADD: string, TODO_NONE: string, TODO_UNDO: string, TODO_COMPLETE: string, TODO_DELETE: string}}
  */
 const TodoCrudEnum = {
@@ -11,7 +11,7 @@ const TodoCrudEnum = {
 }
 
 /**
- * Todo Filters
+ * Enum: Filters
  * @type {{FILTER_PAST: string, FILTER_ALL: string, FILTER_COMPLETED: string, FILTER_TODAY: string}}
  */
 const TodoFilterEnum = {

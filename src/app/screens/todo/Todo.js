@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 
 // app
 import { Col, Row } from 'antd'
-import { dateIsBefore, dateIsSame } from '../../utilities/helpers/Date'
 import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum'
+import { dateIsBefore, dateIsSame } from '../../utilities/helpers/Date'
 import TodoFilters from './TodoFilter'
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
@@ -20,7 +20,7 @@ const Todo = () => {
 		filtered: []
 	};
 
-	// hook: todo
+	// hook: todoList
 	const [todoList, setTodoList] = useState(initialState);
 
 	/**
@@ -28,7 +28,10 @@ const Todo = () => {
 	 * fetch data from firebase
 	 */
 	useEffect(() => {
-		// api: fetch todo list
+		/**
+		 * fetch todoList
+		 * @returns {Promise<void>}
+		 */
 		const fetchData = async () => {
 			await firebase.firestore()
 				.collection(collectionName)
@@ -50,14 +53,16 @@ const Todo = () => {
 					});
 				});
 		};
+
+		// fetch: todoList
 		fetchData().then();
 	}, []);
 
 	/**
-	 * Firebase Collection
+	 * get firebase collection
 	 * @param id
 	 */
-	const firestoreCollection = (id) => {
+	const getFirestoreCollection = (id) => {
 		const db = firebase.firestore();
 		if (!id) {
 			return db.collection(collectionName);
@@ -66,12 +71,12 @@ const Todo = () => {
 	};
 
 	/**
-	 * Todo CRUD Operations
+	 * apply CRUD operations
 	 * @param todo
 	 * @param type
 	 * @returns {Promise<void>}
 	 */
-	const todoCrud = async (todo, type) => {
+	const todoApplyOperation = async (todo, type) => {
 		const { id, index, ...todoItem } = todo;
 		let newTodoList = { ...todoList };
 
@@ -79,7 +84,7 @@ const Todo = () => {
 		switch (type) {
 			case TodoCrudEnum.TODO_ADD:
 				// add to firestore
-				await firestoreCollection()
+				await getFirestoreCollection()
 					.add(todoItem)
 					.then((result) => {
 						// update list
@@ -91,7 +96,7 @@ const Todo = () => {
 				break;
 			case TodoCrudEnum.TODO_COMPLETE:
 				// update item in firestore
-				await firestoreCollection(id)
+				await getFirestoreCollection(id)
 					.set({ ...todoItem, isCompleted: true })
 					.then(() => {
 						// update list
@@ -100,7 +105,7 @@ const Todo = () => {
 				break;
 			case TodoCrudEnum.TODO_UNDO:
 				// update item in firestore
-				await firestoreCollection(id)
+				await getFirestoreCollection(id)
 					.set({ ...todoItem, isCompleted: false })
 					.then(() => {
 						// update list
@@ -109,7 +114,7 @@ const Todo = () => {
 				break;
 			case TodoCrudEnum.TODO_DELETE:
 				// delete from firestore
-				await firestoreCollection(id)
+				await getFirestoreCollection(id)
 					.delete()
 					.then(() => {
 						// update list
@@ -120,16 +125,16 @@ const Todo = () => {
 		}
 
 		// apply filter to the list
-		// reset to filter on addition of new item: ALL
-		todoFilter(TodoFilterEnum.FILTER_ALL, newTodoList);
+		// reset filter on addition of new item: ALL
+		todoApplyFilter(TodoFilterEnum.FILTER_ALL, newTodoList);
 	};
 
 	/**
-	 * Todo Filters
+	 * apply filters
 	 * @param type
 	 * @param list
 	 */
-	const todoFilter = (type, list = todoList) => {
+	const todoApplyFilter = (type, list = todoList) => {
 		const newTodoList = { ...list };
 		switch (type) {
 			case TodoFilterEnum.FILTER_ALL:
@@ -159,12 +164,12 @@ const Todo = () => {
 		<div className="td-todo">
 			<Row>
 				<Col span={5} className="td-selection">
-					<TodoFilters todoFilter={todoFilter} />
+					<TodoFilters todoApplyFilter={todoApplyFilter} />
 				</Col>
 				<Col span={19} className="td-list">
 					{/* Form */}
 					<section className="td-form-wrapper">
-						<TodoForm todoCrud={todoCrud}/>
+						<TodoForm todoApplyOperation={todoApplyOperation}/>
 					</section>
 
 					{/* List */}
@@ -175,7 +180,7 @@ const Todo = () => {
 									key={todo.id}
 									index={index}
 									todo={todo}
-									todoCrud={todoCrud}
+									todoApplyOperation={todoApplyOperation}
 								/>
 							))
 						}

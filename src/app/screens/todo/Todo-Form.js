@@ -7,12 +7,12 @@ import { Button, DatePicker, Form, Input } from 'antd';
 import { dateInMoment, fbDatetimeToTimestamp, fbTimestampToDatetime } from '../../utilities/helpers/Date'
 
 /**
- * form: to add a new todo to the list
- * @param todoCrud
+ * form: to add a new item to the list
+ * @param todoApplyOperation
  * @returns {*}
  * @constructor
  */
-const TodoForm = ({ todoCrud }) => {
+const TodoForm = ({ todoApplyOperation }) => {
 	// initial state
 	const initialState = {
 		text: '',
@@ -54,14 +54,16 @@ const TodoForm = ({ todoCrud }) => {
 	}
 
 	/**
-     * handle todo on submit
+     * on submit
+	 * add a new item
+	 * clear the form
      */
 	const handleSubmit = () => {
 		// return on empty
 		if (!state.text || !state.expireDate) return;
 
-		// add a todo
-		todoCrud(state, TodoCrudEnum.TODO_ADD);
+		// add a new item
+		todoApplyOperation(state, TodoCrudEnum.TODO_ADD);
 
 		// set initial state
 		setState(initialState);
