@@ -1,15 +1,19 @@
 // react
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // app
 import { Col, Row } from 'antd'
 import { dateIsBefore, dateIsSame } from '../../utilities/helpers/Date'
-import TodoFilter from './TodoFilter'
+import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum'
+import TodoFilters from './TodoFilter'
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
-import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum'
+import firebase from '../../../firebase'
 
 const Todo = () => {
+	// collection name
+	const collectionName = 'todo';
+
 	// initial state
 	const initialState = {
 		original: [],
@@ -20,26 +24,97 @@ const Todo = () => {
 	const [todoList, setTodoList] = useState(initialState);
 
 	/**
-	 * TODO CRUD
-	 * add a todo
-	 * complete a todo
-	 * undo a todo
-	 * delete a todo
+	 * called on mount
+	 * fetch data from firebase
 	 */
-	const todoCrud = (stateOrIndex, type) => {
+	useEffect(() => {
+		// api: fetch todo list
+		const fetchData = async () => {
+			await firebase.firestore()
+				.collection(collectionName)
+				.get()
+				.then((snapshot) => {
+					// get list
+					const items = snapshot.docs
+						.sort((a, b) => {
+							if (a.data().createdDate > b.data().createdDate) return -1;
+							if (a.data().createdDate < b.data().createdDate) return 1;
+							return 0;
+						})
+						.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+					// set list
+					setTodoList({
+						original: items,
+						filtered: items
+					});
+				});
+		};
+		fetchData().then();
+	}, []);
+
+	/**
+	 * Firebase Collection
+	 * @param id
+	 */
+	const firestoreCollection = (id) => {
+		const db = firebase.firestore();
+		if (!id) {
+			return db.collection(collectionName);
+		}
+		return db.collection(collectionName).doc(id);
+	};
+
+	/**
+	 * Todo CRUD Operations
+	 * @param todo
+	 * @param type
+	 * @returns {Promise<void>}
+	 */
+	const todoCrud = async (todo, type) => {
+		const { id, index, ...todoItem } = todo;
 		let newTodoList = { ...todoList };
+
+		// switch block
 		switch (type) {
 			case TodoCrudEnum.TODO_ADD:
-				newTodoList = { ...todoList, original: [...todoList.original, stateOrIndex] };
+				// add to firestore
+				await firestoreCollection()
+					.add(todoItem)
+					.then((result) => {
+						// update list
+						newTodoList = {
+							...todoList,
+							original: [{ ...todo, id: result.id }, ...todoList.original]
+						};
+					});
 				break;
 			case TodoCrudEnum.TODO_COMPLETE:
-				newTodoList.original[stateOrIndex].isCompleted = true;
+				// update item in firestore
+				await firestoreCollection(id)
+					.set({ ...todoItem, isCompleted: true })
+					.then(() => {
+						// update list
+						newTodoList.original[index].isCompleted = true;
+					});
 				break;
 			case TodoCrudEnum.TODO_UNDO:
-				newTodoList.original[stateOrIndex].isCompleted = false;
+				// update item in firestore
+				await firestoreCollection(id)
+					.set({ ...todoItem, isCompleted: false })
+					.then(() => {
+						// update list
+						newTodoList.original[index].isCompleted = false;
+					});
 				break;
 			case TodoCrudEnum.TODO_DELETE:
-				newTodoList.original.splice(stateOrIndex, 1);
+				// delete from firestore
+				await firestoreCollection(id)
+					.delete()
+					.then(() => {
+						// update list
+						newTodoList.original.splice(index, 1);
+					})
 				break;
 			default:
 		}
@@ -50,11 +125,9 @@ const Todo = () => {
 	};
 
 	/**
-	 * TODO FILTER
-	 * All
-	 * Due Today
-	 * Past Due
-	 * Completed
+	 * Todo Filters
+	 * @param type
+	 * @param list
 	 */
 	const todoFilter = (type, list = todoList) => {
 		const newTodoList = { ...list };
@@ -63,10 +136,14 @@ const Todo = () => {
 				newTodoList.filtered = newTodoList.original;
 				break;
 			case TodoFilterEnum.FILTER_TODAY:
-				newTodoList.filtered = newTodoList.original.filter((t) => dateIsSame(t.expireDate, 'day'));
+				newTodoList.filtered = newTodoList.original.filter(
+					(t) => !t.isCompleted && dateIsSame(t.expireDate, 'day')
+				);
 				break;
 			case TodoFilterEnum.FILTER_PAST:
-				newTodoList.filtered = newTodoList.original.filter((t) => dateIsBefore(t.expireDate, 'day'));
+				newTodoList.filtered = newTodoList.original.filter(
+					(t) => dateIsBefore(t.expireDate, 'day')
+				);
 				break;
 			case TodoFilterEnum.FILTER_COMPLETED:
 				newTodoList.filtered = newTodoList.original.filter((t) => !!t.isCompleted);
@@ -82,7 +159,7 @@ const Todo = () => {
 		<div className="td-todo">
 			<Row>
 				<Col span={5} className="td-selection">
-					<TodoFilter todoFilter={todoFilter} />
+					<TodoFilters todoFilter={todoFilter} />
 				</Col>
 				<Col span={19} className="td-list">
 					{/* Form */}
@@ -95,7 +172,7 @@ const Todo = () => {
 						{
 							todoList.filtered.map((todo, index) => (
 								<TodoItem
-									key={index}
+									key={todo.id}
 									index={index}
 									todo={todo}
 									todoCrud={todoCrud}

@@ -5,12 +5,7 @@ import React from 'react'
 import { TodoFilterEnum } from './Todo.enum'
 
 /**
- * TODO Filter
- * All
- * Due Today
- * Past Due
- * Completed
- *
+ * display a list of todo filters
  * @param todoFilter
  * @returns {*}
  * @constructor

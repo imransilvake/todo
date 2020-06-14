@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 // app
 import { TodoCrudEnum } from './Todo.enum'
 import { Button, DatePicker, Form, Input } from 'antd';
-import { dateInMoment } from '../../utilities/helpers/Date'
+import { dateInMoment, fbDatetimeToTimestamp, fbTimestampToDatetime } from '../../utilities/helpers/Date'
 
 /**
- * todo form to add a new todo to the list
+ * form: to add a new todo to the list
  * @param todoCrud
  * @returns {*}
  * @constructor
@@ -16,8 +16,9 @@ const TodoForm = ({ todoCrud }) => {
 	// initial state
 	const initialState = {
 		text: '',
-		createdDate: dateInMoment(),
-		expireDate: dateInMoment()
+		createdDate: fbDatetimeToTimestamp(),
+		expireDate: fbDatetimeToTimestamp(),
+		isCompleted: false
 	};
 
 	// hook: value
@@ -40,9 +41,15 @@ const TodoForm = ({ todoCrud }) => {
      * @param event
      */
 	const handleDateChange = (event) => {
+		// create timestamps
+		const createdDate = fbDatetimeToTimestamp();
+		const expireDate = fbDatetimeToTimestamp(event);
+
+		// set state
 		setState({
 			...state,
-			expireDate: event
+			createdDate,
+			expireDate
 		});
 	}
 
@@ -80,8 +87,8 @@ const TodoForm = ({ todoCrud }) => {
 					id="date"
 					name="date"
 					type="date"
-					value={state.expireDate}
 					onChange={handleDateChange}
+					value={fbTimestampToDatetime(state.expireDate.seconds)}
 					disabledDate={(current) => {
 						return current && current < dateInMoment().subtract(1, 'day');
 					}}

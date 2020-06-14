@@ -1,5 +1,6 @@
 // app
-import moment from 'moment'
+import moment from 'moment';
+import * as firebase from 'firebase';
 
 /**
  * date in moment format
@@ -25,20 +26,9 @@ const dateInString = (date) => {
  * @param date
  * @returns {string}
  */
-const dateFormat1 = (date) => {
+const dateFormat = (date) => {
 	const d = !date ? moment() : date;
 	return dateInString(moment(d).format('MM/DD/YYYY'));
-}
-
-/**
- * date format 1
- * DD/MM/YYYY
- * @param date
- * @returns {string}
- */
-const dateFormat2 = (date) => {
-	const d = !date ? moment() : date;
-	return dateInString(moment(d).format('DD/MM/YYYY'));
 }
 
 /**
@@ -61,11 +51,33 @@ const dateIsBefore = (date, granularity) => {
 	return moment(date).isBefore(moment(), granularity)
 }
 
+/**
+ * firebase: timestamp to datetime
+ * @param timestamp
+ * @returns {moment.Moment}
+ */
+const fbTimestampToDatetime = (timestamp) => {
+	const ts = timestamp || firebase.firestore.Timestamp.now().seconds;
+	return moment(ts * 1000);
+}
+
+/**
+ * firebase: datetime to timestamp
+ * @param value
+ * @returns {firebase.firestore.Timestamp}
+ */
+const fbDatetimeToTimestamp = (value) => {
+	return value
+		? firebase.firestore.Timestamp.fromDate(moment(value).toDate())
+		: firebase.firestore.Timestamp.now();
+}
+
 export {
 	dateInMoment,
 	dateInString,
-	dateFormat1,
-	dateFormat2,
+	dateFormat,
 	dateIsSame,
-	dateIsBefore
+	dateIsBefore,
+	fbTimestampToDatetime,
+	fbDatetimeToTimestamp
 };

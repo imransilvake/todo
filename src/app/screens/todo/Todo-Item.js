@@ -4,10 +4,10 @@ import React from 'react'
 // app
 import { TodoCrudEnum } from './Todo.enum'
 import { Button, Divider } from 'antd'
-import { dateFormat1 } from '../../utilities/helpers/Date'
+import { dateFormat, fbTimestampToDatetime } from '../../utilities/helpers/Date'
 
 /**
- * a single todo item in the list
+ * display a single todo item
  * @param todo
  * @param index
  * @param todoCrud
@@ -15,7 +15,6 @@ import { dateFormat1 } from '../../utilities/helpers/Date'
  * @constructor
  */
 const TodoItem = ({ todo, index, todoCrud }) => {
-	console.log('Todo Item');
 	return (
 		<>
 			{/* Divider */}
@@ -26,31 +25,31 @@ const TodoItem = ({ todo, index, todoCrud }) => {
 				{todo.text}
 				<div>
 					{/* created date */}
-					{!!todo.createdDate && (
-						<p>{ dateFormat1(todo.createdDate) }</p>
+					{!!todo.createdDate && !!todo.createdDate.seconds && (
+						<p>{ dateFormat(fbTimestampToDatetime(todo.createdDate.seconds)) }</p>
 					)}
 
-					{/* expired date */}
-					{!!todo.expireDate && (
-						<p>{ dateFormat1(todo.expireDate) }</p>
+					{/* expire date */}
+					{!!todo.expireDate && !!todo.expireDate.seconds && (
+						<p>{ dateFormat(fbTimestampToDatetime(todo.expireDate.seconds)) }</p>
 					)}
 
 					{/* complete a todo */}
 					{!todo.isCompleted && (
-						<Button type="button" onClick={() => todoCrud(index, TodoCrudEnum.TODO_COMPLETE)}>
+						<Button type="button" onClick={() => todoCrud({ ...todo, index }, TodoCrudEnum.TODO_COMPLETE)}>
 							Complete
 						</Button>
 					)}
 
 					{/* undo a todo */}
 					{todo.isCompleted && (
-						<Button type="button" onClick={() => todoCrud(index, TodoCrudEnum.TODO_UNDO)}>
+						<Button type="button" onClick={() => todoCrud({ ...todo, index }, TodoCrudEnum.TODO_UNDO)}>
 							Undo
 						</Button>
 					)}
 
 					{/* remove a todo */}
-					<Button type="button" onClick={() => todoCrud(index, TodoCrudEnum.TODO_DELETE)}>
+					<Button type="button" onClick={() => todoCrud({ ...todo, index }, TodoCrudEnum.TODO_DELETE)}>
 						remove
 					</Button>
 				</div>
