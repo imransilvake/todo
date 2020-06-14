@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 // app
 import { Col, Row } from 'antd'
 import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum'
-import { dateIsBefore, dateIsSame } from '../../utilities/helpers/Date'
+import { dateIsBefore, dateIsSame, fbTimestampToDatetime } from '../../utilities/helpers/Date'
 import TodoFilters from './TodoFilter'
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
@@ -142,12 +142,12 @@ const Todo = () => {
 				break;
 			case TodoFilterEnum.FILTER_TODAY:
 				newTodoList.filtered = newTodoList.original.filter(
-					(t) => !t.isCompleted && dateIsSame(t.expireDate, 'day')
+					(t) => !t.isCompleted && dateIsSame(fbTimestampToDatetime(t.expireDate.seconds), 'day')
 				);
 				break;
 			case TodoFilterEnum.FILTER_PAST:
 				newTodoList.filtered = newTodoList.original.filter(
-					(t) => dateIsBefore(t.expireDate, 'day')
+					(t) => dateIsBefore(fbTimestampToDatetime(t.expireDate.seconds), 'day')
 				);
 				break;
 			case TodoFilterEnum.FILTER_COMPLETED:
