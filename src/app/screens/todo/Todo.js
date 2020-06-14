@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'antd'
 import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum'
 import { dateIsBefore, dateIsSame, fbTimestampToDatetime } from '../../utilities/helpers/Date'
-import TodoFilters from './TodoFilter'
+import TodoFilter from './Todo-Filter'
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
 import firebase from '../../../firebase'
@@ -164,7 +164,7 @@ const Todo = () => {
 		<div className="td-todo">
 			<Row>
 				<Col span={5} className="td-selection">
-					<TodoFilters todoApplyFilter={todoApplyFilter} />
+					<TodoFilter todoApplyFilter={todoApplyFilter} />
 				</Col>
 				<Col span={19} className="td-list">
 					{/* Form */}
