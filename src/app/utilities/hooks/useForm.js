@@ -9,44 +9,25 @@ import { useState } from 'react'
  * @returns {*}
  */
 const useForm = (initialState, formValidation, submitCallBack) => {
-	// hook: values
+	// hook: values, errors, loader
 	const [values, setValues] = useState(initialState);
 	const [errors, setErrors] = useState(0);
 	const [loader, setLoader] = useState(false);
 
 	/**
-	 * handle value change
+	 * handle change
 	 * @param event
+	 * @param fieldName
 	 */
-	const handleChange = (event) => {
-		// destruct
-		const { name, value } = event.target;
-
+	const handleChange = (event, fieldName = null) => {
 		// payload
-		const payload = {
-			...values,
-			[name]: value
-		};
-
-		// set values
-		setValues(payload);
-
-		// set errors
-		const validateErrors = formValidation(payload);
-		setErrors(validateErrors);
-	}
-
-	/**
-	 * handle date change
-	 * @param date
-	 * @param name
-	 */
-	const handleDateChange = (date, name) => {
-		// payload
-		const payload = {
-			...values,
-			[name]: date
-		};
+		const payload = { ...values };
+		if (fieldName) {
+			payload[fieldName] = event;
+		} else {
+			const { name, value } = event.target;
+			payload[name] = value;
+		}
 
 		// set values
 		setValues(payload);
@@ -73,13 +54,12 @@ const useForm = (initialState, formValidation, submitCallBack) => {
 		setLoader(false);
 	}
 
-	return {
+	return [
 		handleChange,
-		handleDateChange,
 		handleSubmit,
 		values,
 		errors,
 		loader
-	}
+	]
 }
 export default useForm;

@@ -6,7 +6,7 @@ import { TodoCrudEnum } from './Todo.enum';
 import { Button, DatePicker, Form, Input } from 'antd';
 import { dateInMoment, fbDatetimeToTimestamp } from '../../utilities/helpers/Date';
 import useForm from '../../utilities/hooks/useForm';
-import TodoFormValidation from './Todo-Form-Validations'
+import TodoFormValidation from './Todo-Form-Validation'
 
 /**
  * form: to add a new item to the list
@@ -24,7 +24,7 @@ const TodoForm = ({ todoApplyOperation }) => {
 	};
 
 	// hook: useForm
-	const { handleChange, handleDateChange, handleSubmit, values, errors, loader } = useForm(
+	const [handleChange, handleSubmit, values, errors, loader] = useForm(
 		initialState, TodoFormValidation, () => formSubmit()
 	);
 
@@ -71,10 +71,9 @@ const TodoForm = ({ todoApplyOperation }) => {
 				{/* Date */}
 				<Form.Item className="td-date">
 					<DatePicker
-						id="date"
+						id="expireDate"
 						type="date"
-						name="date"
-						onChange={(e) => handleDateChange(e, 'expireDate')}
+						onChange={(e) => handleChange(e, 'expireDate')}
 						value={values.expireDate}
 						disabledDate={(current) => {
 							return current && current < dateInMoment().subtract(1, 'day');
