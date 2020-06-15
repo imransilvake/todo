@@ -7,29 +7,20 @@
 			"jsx": true
 		}
 	},
-	"env": {
-		"browser": true,
-		"node": true
-	},
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"airbnb"
 	],
 	"rules": {
-		"react/jsx-filename-extension": [
-			1,
-			{ "extensions": [".js", ".jsx"] }
-		],
-		"react/prefer-stateless-function": [
-			0,
-			{ "ignorePureComponents": false }
-		],
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"quotes": ["error", "single"],
+		"semi": ["error", "always"],
+		"linebreak-style": ["error", "unix"],
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+		"react/prefer-stateless-function": [0, { "ignorePureComponents": false }],
 		"react/jsx-indent": ["error", "tab"],
-		"comma-dangle": [
-			"error",
-			{ "functions": "ignore" }
-		],
+		"comma-dangle": ["error", { "functions": "ignore" }],
 		"no-tabs": 0,
 		"max-len": 0,
 		"arrow-body-style": 0,
@@ -77,10 +68,6 @@
 					"componentWillUpdate"
 				]
 			}
-		}],
-		"indent": ["error", "tab", { "SwitchCase": 1 }],
-		"linebreak-style": ["error", "unix"],
-		"quotes": ["error", "single"],
-		"semi": ["off", "always"]
+		}]
 	}
 }

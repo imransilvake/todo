@@ -9,7 +9,7 @@ import * as firebase from 'firebase';
  */
 const dateInMoment = (date) => {
 	return !date ? moment() : moment(date);
-}
+};
 
 /**
  * date in string form
@@ -18,7 +18,7 @@ const dateInMoment = (date) => {
  */
 const dateInString = (date) => {
 	return date.toString();
-}
+};
 
 /**
  * date format 1
@@ -29,7 +29,7 @@ const dateInString = (date) => {
 const dateFormat = (date) => {
 	const d = !date ? moment() : date;
 	return dateInString(moment(d).format('MM/DD/YYYY'));
-}
+};
 
 /**
  * validate: is same date
@@ -38,8 +38,8 @@ const dateFormat = (date) => {
  * @returns {boolean}
  */
 const dateIsSame = (date, granularity) => {
-	return moment(date).isSame(moment(), granularity)
-}
+	return moment(date).isSame(moment(), granularity);
+};
 
 /**
  * validate: is before date
@@ -48,8 +48,8 @@ const dateIsSame = (date, granularity) => {
  * @returns {boolean}
  */
 const dateIsBefore = (date, granularity) => {
-	return moment(date).isBefore(moment(), granularity)
-}
+	return moment(date).isBefore(moment(), granularity);
+};
 
 /**
  * firebase: timestamp to datetime
@@ -59,7 +59,7 @@ const dateIsBefore = (date, granularity) => {
 const fbTimestampToDatetime = (timestamp) => {
 	const ts = timestamp || firebase.firestore.Timestamp.now().seconds;
 	return moment(ts * 1000);
-}
+};
 
 /**
  * firebase: datetime to timestamp
@@ -70,7 +70,7 @@ const fbDatetimeToTimestamp = (value) => {
 	return value
 		? firebase.firestore.Timestamp.fromDate(moment(value).toDate())
 		: firebase.firestore.Timestamp.now();
-}
+};
 
 export {
 	dateInMoment,

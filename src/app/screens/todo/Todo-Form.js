@@ -3,10 +3,10 @@ import React from 'react';
 
 // app
 import { TodoCrudEnum } from './Todo.enum';
-import { Button, DatePicker, Form, Input } from 'antd';
+import { Button, DatePicker, Form, Input, Spin } from 'antd';
 import { dateInMoment, fbDatetimeToTimestamp } from '../../utilities/helpers/Date';
+import TodoFormValidation from './Todo-Form-Validation';
 import useForm from '../../utilities/hooks/useForm';
-import TodoFormValidation from './Todo-Form-Validation'
 
 /**
  * form: to add a new item to the list
@@ -34,14 +34,14 @@ const TodoForm = ({ todoApplyOperation }) => {
 	 */
 	const formValid = () => {
 		return !(errors === 0 || Object.keys(errors).length > 0 || loader);
-	}
+	};
 
 	/**
      * handle submit
 	 * add a new item
 	 * clear the form
      */
-	const formSubmit = () => {
+	const formSubmit = async () => {
 		// item payload
 		const payload = {
 			...values,
@@ -50,8 +50,8 @@ const TodoForm = ({ todoApplyOperation }) => {
 		};
 
 		// add a new item
-		todoApplyOperation(payload, TodoCrudEnum.TODO_ADD);
-	}
+		await todoApplyOperation(payload, TodoCrudEnum.TODO_ADD);
+	};
 
 	return (
 		<>
@@ -89,6 +89,9 @@ const TodoForm = ({ todoApplyOperation }) => {
 				</Form.Item>
 			</Form>
 
+			{/* Spinner */}
+			{ loader && <Spin /> }
+
 			{/* Errors */}
 			{
 				Object.values(errors).map((error, index) => (
@@ -97,5 +100,5 @@ const TodoForm = ({ todoApplyOperation }) => {
 			}
 		</>
 	);
-}
+};
 export default TodoForm;

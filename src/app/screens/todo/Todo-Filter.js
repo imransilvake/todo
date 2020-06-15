@@ -1,8 +1,8 @@
 // react
-import React from 'react'
+import React from 'react';
 
 // app
-import { TodoFilterEnum } from './Todo.enum'
+import { TodoFilterEnum } from './Todo.enum';
 
 /**
  * display a list of filters
@@ -27,6 +27,6 @@ const TodoFilter = ({ todoApplyFilter }) => {
 				<a href="/#" onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_COMPLETED)}>Completed</a>
 			</h4>
 		</>
-	)
-}
+	);
+};
 export default TodoFilter;

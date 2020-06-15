@@ -2,10 +2,10 @@
 import React from 'react';
 
 // app
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
 const Error404 = () => {
-	// hook: tranlation
+	// hook: translation
 	const { t } = useTranslation();
 
 	return (
@@ -14,5 +14,5 @@ const Error404 = () => {
 			<p>{t('404')}</p>
 		</section>
 	);
-}
+};
 export default Error404;

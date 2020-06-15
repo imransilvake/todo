@@ -1,14 +1,14 @@
 // react
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 // app
-import { Col, Row } from 'antd'
-import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum'
-import { dateIsBefore, dateIsSame, fbTimestampToDatetime } from '../../utilities/helpers/Date'
-import TodoFilter from './Todo-Filter'
+import { Col, Row } from 'antd';
+import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum';
+import { dateIsBefore, dateIsSame, fbTimestampToDatetime } from '../../utilities/helpers/Date';
+import TodoFilter from './Todo-Filter';
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
-import firebase from '../../../firebase'
+import firebase from '../../../firebase';
 
 const Todo = () => {
 	// collection name
@@ -119,7 +119,7 @@ const Todo = () => {
 					.then(() => {
 						// update list
 						newTodoList.original.splice(index, 1);
-					})
+					});
 				break;
 			default:
 		}
@@ -189,5 +189,5 @@ const Todo = () => {
 			</Row>
 		</div>
 	);
-}
+};
 export default Todo;

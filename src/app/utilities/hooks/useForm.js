@@ -1,5 +1,5 @@
 // react
-import { useState } from 'react'
+import { useState } from 'react';
 
 /**
  * custom hook: useForm
@@ -35,24 +35,25 @@ const useForm = (initialState, formValidation, submitCallBack) => {
 		// set errors
 		const validateErrors = formValidation(payload);
 		setErrors(validateErrors);
-	}
+	};
 
 	/**
 	 * handle submit
 	 */
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		// start loader
 		setLoader(true);
 
 		// callback
-		submitCallBack();
+		// wait for callback to execute
+		await submitCallBack();
 
 		// initial state
 		setValues(initialState);
 
 		// stop loader
 		setLoader(false);
-	}
+	};
 
 	return [
 		handleChange,
@@ -60,6 +61,6 @@ const useForm = (initialState, formValidation, submitCallBack) => {
 		values,
 		errors,
 		loader
-	]
-}
+	];
+};
 export default useForm;

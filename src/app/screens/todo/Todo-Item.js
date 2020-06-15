@@ -1,10 +1,10 @@
 // react
-import React from 'react'
+import React from 'react';
 
 // app
-import { TodoCrudEnum } from './Todo.enum'
-import { Button, Divider } from 'antd'
-import { dateFormat, fbTimestampToDatetime } from '../../utilities/helpers/Date'
+import { TodoCrudEnum } from './Todo.enum';
+import { Button, Divider } from 'antd';
+import { dateFormat, fbTimestampToDatetime } from '../../utilities/helpers/Date';
 
 /**
  * display a single item
@@ -55,6 +55,6 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 				</div>
 			</div>
 		</>
-	)
-}
+	);
+};
 export default TodoItem;

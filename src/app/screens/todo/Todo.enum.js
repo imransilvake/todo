@@ -8,7 +8,7 @@ const TodoCrudEnum = {
 	TODO_UNDO: 'UNDO',
 	TODO_DELETE: 'DELETE',
 	TODO_NONE: 'NONE'
-}
+};
 
 /**
  * Enum: Filters
