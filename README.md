@@ -4,11 +4,20 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 
 ## Content
 - [X] CRUD: Create, Read, Update, and Delete
-- [X] Implemented using React Hooks
+- [X] Apply Filter
+    - [X] Show All
+    - [X] Due Today
+    - [X] Past Due
+    - [X] Completed
+- [X] Implement using Functional Components and React Hooks
+    - [X] useEffect
+    - [X] useState
+    - [X] Custom Hook (useForm): to do form validation
 - [X] Connect Firebase:
     - [X] Fetch collection from firebase
     - [X] Apply CRUD operations
-- [ ] Layout Todo
+- [X] CSS Library: Ant Design
+    - [ ] Layout Todo
 
 
 ## Libraries and Frameworks
