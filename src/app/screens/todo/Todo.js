@@ -9,10 +9,11 @@ import TodoFilter from './Todo-Filter';
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
 import firebase from '../../../firebase';
+import AppOptions from '../../../app.config';
 
 const Todo = () => {
-	// collection name
-	const collectionName = 'todo';
+	// collection
+	const { collection } = AppOptions.firebase;
 
 	// initial state
 	const initialState = {
@@ -20,13 +21,10 @@ const Todo = () => {
 		filtered: []
 	};
 
-	// hook: todoList
+	// hook: todoList state
 	const [todoList, setTodoList] = useState(initialState);
 
-	/**
-	 * called on mount
-	 * fetch data from firebase
-	 */
+	// hook: on mount: fetch data from firebase
 	useEffect(() => {
 		/**
 		 * fetch todoList
@@ -34,7 +32,7 @@ const Todo = () => {
 		 */
 		const fetchData = async () => {
 			await firebase.firestore()
-				.collection(collectionName)
+				.collection(AppOptions.firebase.collection)
 				.get()
 				.then((snapshot) => {
 					// get list
@@ -65,9 +63,9 @@ const Todo = () => {
 	const getFirestoreCollection = (id) => {
 		const db = firebase.firestore();
 		if (!id) {
-			return db.collection(collectionName);
+			return db.collection(collection);
 		}
-		return db.collection(collectionName).doc(id);
+		return db.collection(collection).doc(id);
 	};
 
 	/**
@@ -130,7 +128,7 @@ const Todo = () => {
 	};
 
 	/**
-	 * apply filters
+	 * apply filters on the list
 	 * @param type
 	 * @param list
 	 */
@@ -142,12 +140,16 @@ const Todo = () => {
 				break;
 			case TodoFilterEnum.FILTER_TODAY:
 				newTodoList.filtered = newTodoList.original.filter(
-					(t) => !t.isCompleted && dateIsSame(fbTimestampToDatetime(t.expireDate.seconds), 'day')
+					(t) => !t.isCompleted && dateIsSame(
+						fbTimestampToDatetime(t.expireDate.seconds), 'day'
+					)
 				);
 				break;
 			case TodoFilterEnum.FILTER_PAST:
 				newTodoList.filtered = newTodoList.original.filter(
-					(t) => !t.isCompleted && dateIsBefore(fbTimestampToDatetime(t.expireDate.seconds), 'day')
+					(t) => !t.isCompleted && dateIsBefore(
+						fbTimestampToDatetime(t.expireDate.seconds), 'day'
+					)
 				);
 				break;
 			case TodoFilterEnum.FILTER_COMPLETED:
