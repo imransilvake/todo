@@ -1,6 +1,6 @@
 const AppOptions = {
 	firebase: {
-		collection: 'todo'
+		collectionName: 'todo'
 	}
 };
 export default AppOptions;

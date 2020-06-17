@@ -3,6 +3,7 @@ import React from 'react';
 
 // app
 import { TodoFilterEnum } from './Todo.enum';
+import { Button } from 'antd';
 
 /**
  * display a list of filters
@@ -15,16 +16,16 @@ const TodoFilter = ({ todoApplyFilter }) => {
 		<>
 			<h1>TODOs</h1>
 			<h4>
-				<a href="/#" onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_ALL)}>All</a>
+				<Button onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_ALL)}>All</Button>
 			</h4>
 			<h4>
-				<a href="/#" onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_TODAY)}>Due Today</a>
+				<Button onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_TODAY)}>Due Today</Button>
 			</h4>
 			<h4>
-				<a href="/#" onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_PAST)}>Past Due</a>
+				<Button onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_PAST)}>Past Due</Button>
 			</h4>
 			<h4>
-				<a href="/#" onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_COMPLETED)}>Completed</a>
+				<Button onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_COMPLETED)}>Complete</Button>
 			</h4>
 		</>
 	);

@@ -42,7 +42,7 @@ const TodoForm = ({ todoApplyOperation }) => {
 	 * clear the form
      */
 	const formSubmit = async () => {
-		// item payload
+		// payload
 		const payload = {
 			...values,
 			createdDate: fbDatetimeToTimestamp(),

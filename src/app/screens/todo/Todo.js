@@ -12,9 +12,6 @@ import firebase from '../../../firebase';
 import AppOptions from '../../../app.config';
 
 const Todo = () => {
-	// collection
-	const { collection } = AppOptions.firebase;
-
 	// initial state
 	const initialState = {
 		original: [],
@@ -32,7 +29,7 @@ const Todo = () => {
 		 */
 		const fetchData = async () => {
 			await firebase.firestore()
-				.collection(AppOptions.firebase.collection)
+				.collection(AppOptions.firebase.collectionName)
 				.get()
 				.then((snapshot) => {
 					// get list
@@ -52,20 +49,18 @@ const Todo = () => {
 				});
 		};
 
-		// fetch: todoList
+		// fetch data from firebase
 		fetchData().then();
 	}, []);
 
 	/**
-	 * get firebase collection
+	 * get firestore collection
 	 * @param id
 	 */
 	const getFirestoreCollection = (id) => {
-		const db = firebase.firestore();
-		if (!id) {
-			return db.collection(collection);
-		}
-		return db.collection(collection).doc(id);
+		const { collectionName } = AppOptions.firebase;
+		const dbCollection = firebase.firestore().collection(collectionName);
+		return id ? dbCollection.doc(id) : dbCollection;
 	};
 
 	/**
@@ -78,14 +73,12 @@ const Todo = () => {
 		const { id, index, ...todoItem } = todo;
 		let newTodoList = { ...todoList };
 
-		// switch block
+		// select and apply operation
 		switch (type) {
 			case TodoCrudEnum.TODO_ADD:
-				// add to firestore
 				await getFirestoreCollection()
 					.add(todoItem)
 					.then((result) => {
-						// update list
 						newTodoList = {
 							...todoList,
 							original: [{ ...todo, id: result.id }, ...todoList.original]
@@ -93,31 +86,23 @@ const Todo = () => {
 					});
 				break;
 			case TodoCrudEnum.TODO_COMPLETE:
-				// update item in firestore
 				await getFirestoreCollection(id)
 					.set({ ...todoItem, isCompleted: true })
 					.then(() => {
-						// update list
 						newTodoList.original[index].isCompleted = true;
 					});
 				break;
 			case TodoCrudEnum.TODO_UNDO:
-				// update item in firestore
 				await getFirestoreCollection(id)
 					.set({ ...todoItem, isCompleted: false })
 					.then(() => {
-						// update list
 						newTodoList.original[index].isCompleted = false;
 					});
 				break;
 			case TodoCrudEnum.TODO_DELETE:
-				// delete from firestore
 				await getFirestoreCollection(id)
 					.delete()
-					.then(() => {
-						// update list
-						newTodoList.original.splice(index, 1);
-					});
+					.then(() => newTodoList.original.splice(index, 1));
 				break;
 			default:
 		}
@@ -130,10 +115,10 @@ const Todo = () => {
 	/**
 	 * apply filters on the list
 	 * @param type
-	 * @param list
+	 * @param data
 	 */
-	const todoApplyFilter = (type, list = todoList) => {
-		const newTodoList = { ...list };
+	const todoApplyFilter = (type, data = todoList) => {
+		const newTodoList = { ...data };
 		switch (type) {
 			case TodoFilterEnum.FILTER_ALL:
 				newTodoList.filtered = newTodoList.original;
@@ -158,16 +143,19 @@ const Todo = () => {
 			default:
 		}
 
-		// update original
+		// set hook: todoList
 		setTodoList(newTodoList);
 	};
 
 	return (
 		<div className="td-todo">
 			<Row>
+				{/* Sidebar */}
 				<Col span={5} className="td-selection">
 					<TodoFilter todoApplyFilter={todoApplyFilter} />
 				</Col>
+
+				{/* Content */}
 				<Col span={19} className="td-list">
 					{/* Form */}
 					<section className="td-form-wrapper">
