@@ -8,8 +8,10 @@ import { dateIsBefore, dateIsSame, fbTimestampToDatetime } from '../../utilities
 import TodoFilter from './Todo-Filter';
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
-import firebase from '../../../firebase';
 import AppOptions from '../../../app.config';
+import firebase from '../../../firebase';
+
+import TodoInfo from './Todo-Info';
 
 const Todo = () => {
 	// initial state
@@ -143,6 +145,12 @@ const Todo = () => {
 
 	return (
 		<div className="td-todo">
+			{/* Information */}
+			<Row>
+				<TodoInfo todoList={todoList} />
+			</Row>
+
+			{/* Main Content */}
 			<Row>
 				{/* Sidebar */}
 				<Col span={5} className="td-selection">

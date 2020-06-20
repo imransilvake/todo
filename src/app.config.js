@@ -3,7 +3,8 @@ const AppOptions = {
 		collectionName: 'todo'
 	},
 	dateFormats: {
-		one: 'MM/DD/YYYY'
+		one: 'MM/DD/YYYY',
+		two: 'HH'
 	}
 };
 export default AppOptions;

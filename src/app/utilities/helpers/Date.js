@@ -25,11 +25,12 @@ const dateInString = (date) => {
  * date format
  * MM/DD/YYYY
  * @param date
+ * @param format
  * @returns {string}
  */
-const dateFormat = (date) => {
+const dateFormat = (date, format = AppOptions.dateFormats.one) => {
 	const d = !date ? moment() : date;
-	return dateInString(moment(d).format(AppOptions.dateFormats.one));
+	return dateInString(moment(d).format(format));
 };
 
 /**
