@@ -86,17 +86,11 @@ const Todo = () => {
 					});
 				break;
 			case TodoCrudEnum.TODO_COMPLETE:
+			case TodoCrudEnum.TODO_UNDO:
 				await getFirestoreCollection(id)
 					.set({ ...todoItem, isCompleted: true })
 					.then(() => {
-						newTodoList.original[index].isCompleted = true;
-					});
-				break;
-			case TodoCrudEnum.TODO_UNDO:
-				await getFirestoreCollection(id)
-					.set({ ...todoItem, isCompleted: false })
-					.then(() => {
-						newTodoList.original[index].isCompleted = false;
+						newTodoList.original[index].isCompleted = (type === TodoCrudEnum.TODO_COMPLETE);
 					});
 				break;
 			case TodoCrudEnum.TODO_DELETE:
