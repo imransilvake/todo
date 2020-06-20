@@ -1,6 +1,7 @@
 // app
 import moment from 'moment';
-import * as firebase from 'firebase';
+import AppOptions from '../../../app.config';
+import firebase from '../../../firebase';
 
 /**
  * date in moment format
@@ -21,14 +22,14 @@ const dateInString = (date) => {
 };
 
 /**
- * date format 1
+ * date format
  * MM/DD/YYYY
  * @param date
  * @returns {string}
  */
 const dateFormat = (date) => {
 	const d = !date ? moment() : date;
-	return dateInString(moment(d).format('MM/DD/YYYY'));
+	return dateInString(moment(d).format(AppOptions.dateFormats.one));
 };
 
 /**
