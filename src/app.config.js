@@ -2,9 +2,11 @@ const AppOptions = {
 	firebase: {
 		collectionName: 'todo'
 	},
-	dateFormats: {
-		one: 'MM/DD/YYYY',
-		two: 'HH'
+	date: {
+		formats: {
+			one: 'YYYY-MM-DD',
+			two: 'HH'
+		}
 	}
 };
 export default AppOptions;

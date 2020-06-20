@@ -17,17 +17,12 @@ const useForm = (initialState, formValidation, submitCallBack) => {
 	/**
 	 * handle change
 	 * @param event
-	 * @param fieldName
 	 */
-	const handleChange = (event, fieldName = null) => {
+	const handleChange = (event) => {
 		// payload
 		const payload = { ...values };
-		if (fieldName) {
-			payload[fieldName] = event;
-		} else {
-			const { name, value } = event.target;
-			payload[name] = value;
-		}
+		const { name, value } = event.target;
+		payload[name] = value;
 
 		// set values
 		setValues(payload);
@@ -40,7 +35,10 @@ const useForm = (initialState, formValidation, submitCallBack) => {
 	/**
 	 * handle submit
 	 */
-	const handleSubmit = async () => {
+	const handleSubmit = async (event) => {
+		// prevent default
+		event.preventDefault();
+
 		// start loader
 		setLoader(true);
 
@@ -48,11 +46,14 @@ const useForm = (initialState, formValidation, submitCallBack) => {
 		// wait for callback to execute
 		await submitCallBack();
 
+		// stop loader
+		setLoader(false);
+
 		// initial state
 		setValues(initialState);
 
-		// stop loader
-		setLoader(false);
+		// set errors initial state
+		setErrors(0);
 	};
 
 	return [

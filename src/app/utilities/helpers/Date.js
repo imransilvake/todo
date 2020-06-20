@@ -4,15 +4,6 @@ import AppOptions from '../../../app.config';
 import firebase from '../../../firebase';
 
 /**
- * date in moment format
- * @param date
- * @returns {moment.Moment}
- */
-const dateInMoment = (date) => {
-	return !date ? moment() : moment(date);
-};
-
-/**
  * date in string form
  * @param date
  * @returns {string}
@@ -28,7 +19,7 @@ const dateInString = (date) => {
  * @param format
  * @returns {string}
  */
-const dateFormat = (date, format = AppOptions.dateFormats.one) => {
+const dateFormat = (date, format = AppOptions.date.formats.one) => {
 	const d = !date ? moment() : date;
 	return dateInString(moment(d).format(format));
 };
@@ -75,7 +66,6 @@ const fbDatetimeToTimestamp = (value) => {
 };
 
 export {
-	dateInMoment,
 	dateInString,
 	dateFormat,
 	dateIsSame,

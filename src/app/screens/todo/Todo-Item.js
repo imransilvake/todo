@@ -2,8 +2,8 @@
 import React from 'react';
 
 // app
+import { Button, Divider } from '@material-ui/core';
 import { TodoCrudEnum } from './Todo.enum';
-import { Button, Divider } from 'antd';
 import { dateFormat, fbTimestampToDatetime } from '../../utilities/helpers/Date';
 
 /**
@@ -18,7 +18,7 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 	return (
 		<>
 			{/* Divider */}
-			<Divider plain>Text</Divider>
+			<Divider />
 
 			{/* Item */}
 			<div className="td-todo-item">

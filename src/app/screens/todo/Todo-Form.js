@@ -2,9 +2,9 @@
 import React from 'react';
 
 // app
+import { TextField, CircularProgress, Button } from '@material-ui/core';
 import { TodoCrudEnum } from './Todo.enum';
-import { Button, DatePicker, Form, Input, Spin } from 'antd';
-import { dateInMoment, fbDatetimeToTimestamp } from '../../utilities/helpers/Date';
+import { dateFormat, fbDatetimeToTimestamp } from '../../utilities/helpers/Date';
 import TodoFormValidation from './Todo-Form-Validation';
 import useForm from '../../utilities/hooks/useForm';
 
@@ -18,8 +18,8 @@ const TodoForm = ({ todoApplyOperation }) => {
 	// initial state
 	const initialState = {
 		text: '',
-		createdDate: dateInMoment(),
-		expireDate: dateInMoment(),
+		createdDate: dateFormat(),
+		expireDate: dateFormat(),
 		isCompleted: false
 	};
 
@@ -55,42 +55,35 @@ const TodoForm = ({ todoApplyOperation }) => {
 
 	return (
 		<>
-			<Form onFinish={handleSubmit} className="td-form">
+			<form noValidate onSubmit={handleSubmit} className="td-form">
 				{/* Text */}
-				<Form.Item className="td-input">
-					<Input
-						id="text"
-						type="text"
-						name="text"
-						value={values.text}
-						onChange={handleChange}
-						onBlur={handleChange}
-					/>
-				</Form.Item>
+				<TextField
+					id="text"
+					type="text"
+					name="text"
+					value={values.text}
+					onChange={handleChange}
+					onBlur={handleChange}
+				/>
 
 				{/* Date */}
-				<Form.Item className="td-date">
-					<DatePicker
-						id="expireDate"
-						type="date"
-						onChange={(e) => handleChange(e, 'expireDate')}
-						value={values.expireDate}
-						disabledDate={(current) => {
-							return current && current < dateInMoment().subtract(1, 'day');
-						}}
-					/>
-				</Form.Item>
+				<TextField
+					id="date"
+					type="date"
+					name="expireDate"
+					onChange={handleChange}
+					value={values.expireDate}
+					inputProps={{ min: dateFormat() }}
+				/>
 
 				{/* Submit */}
-				<Form.Item>
-					<Button type="primary" htmlType="submit" disabled={!formValid()}>
-						Submit
-					</Button>
-				</Form.Item>
-			</Form>
+				<Button type="submit" disabled={!formValid()}>
+					Submit
+				</Button>
+			</form>
 
 			{/* Spinner */}
-			{ loader && <Spin /> }
+			{ loader && <CircularProgress /> }
 
 			{/* Errors */}
 			{

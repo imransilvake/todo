@@ -17,7 +17,7 @@ const TodoInfo = ({ todoList }) => {
 	 */
 	const welcomeMessage = () => {
 		const greetings = 'Good';
-		const currentHour = dateFormat(null, AppOptions.dateFormats.two);
+		const currentHour = dateFormat(null, AppOptions.date.formats.two);
 		if (currentHour < 12) {
 			return `${greetings} Morning`;
 		} if (currentHour <= 17) {

@@ -4,7 +4,7 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 
 ## Content
 - [X] CRUD: Create, Read, Update, and Delete
-- [X] Apply Filter
+- [X] Apply Filters
     - [X] Show All
     - [X] Due Today
     - [X] Past Due
@@ -16,8 +16,7 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 - [X] Connect Firebase:
     - [X] Fetch collection from firebase
     - [X] Apply CRUD operations
-- [X] CSS Library: Ant Design
-    - [ ] Layout Todo
+- [ ] Layout with Material-UI
 
 
 ## Libraries and Frameworks
@@ -25,7 +24,7 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 #### External 
 - [X] [Create React App](https://github.com/facebook/create-react-app)
 - [X] [Firebase](https://firebase.google.com/)
-- [X] [Ant Design](https://ant.design)
+- [X] [Material-UI](https://material-ui.com/)
 - [X] [Moment](https://ant.design)
 - [X] [Translation](https://github.com/i18next/react-i18next)
 
