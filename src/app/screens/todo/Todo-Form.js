@@ -56,16 +56,6 @@ const TodoForm = ({ todoApplyOperation }) => {
 	return (
 		<>
 			<form noValidate onSubmit={handleSubmit} className="td-form">
-				{/* Text */}
-				<TextField
-					id="text"
-					type="text"
-					name="text"
-					value={values.text}
-					onChange={handleChange}
-					onBlur={handleChange}
-				/>
-
 				{/* Date */}
 				<TextField
 					id="date"
@@ -76,21 +66,37 @@ const TodoForm = ({ todoApplyOperation }) => {
 					inputProps={{ min: dateFormat() }}
 				/>
 
+				{/* Text */}
+				<TextField
+					label="Todo Description"
+					variant="outlined"
+					id="text"
+					type="text"
+					name="text"
+					value={values.text}
+					onChange={handleChange}
+					onBlur={handleChange}
+					error={!(values.text && values.text.length > 0) && errors !== 0}
+					fullWidth
+					multiline
+					rows={3}
+				/>
+
 				{/* Submit */}
-				<Button type="submit" disabled={!formValid()}>
-					Submit
-				</Button>
+				<div className="td-submit">
+					<Button
+						type="submit"
+						variant="contained"
+						color="primary"
+						disabled={!formValid()}
+					>
+						Add Task
+					</Button>
+				</div>
 			</form>
 
 			{/* Spinner */}
 			{ loader && <CircularProgress /> }
-
-			{/* Errors */}
-			{
-				Object.values(errors).map((error, index) => (
-					<p key={index}>{error}</p>
-				))
-			}
 		</>
 	);
 };

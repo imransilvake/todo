@@ -1,0 +1,4 @@
+// font-size: convert pixel to rem
+@function fontSize($size) {
+	@return $size / 16px * 1rem;
+}

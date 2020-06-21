@@ -5,7 +5,8 @@ const AppOptions = {
 	date: {
 		formats: {
 			one: 'YYYY-MM-DD',
-			two: 'HH'
+			two: 'HH',
+			three: 'dddd, MMMM Do'
 		}
 	}
 };

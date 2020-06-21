@@ -7,13 +7,15 @@ import AppRouter from './AppRouter';
 
 const App = () => {
 	return (
-		<BrowserRouter>
-			{/* Header */}
+		<React.Suspense fallback={<div><h1>Loading...</h1></div>}>
+			<BrowserRouter>
+				{/* Header */}
 
-			<AppRouter/>
+				<AppRouter />
 
-			{/* Footer */}
-		</BrowserRouter>
+				{/* Footer */}
+			</BrowserRouter>
+		</React.Suspense>
 	);
 };
 export default App;

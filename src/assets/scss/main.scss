@@ -1,21 +1,5 @@
 @import 'colors';
 
-.td-todo {
-	padding: 20px;
-
-	.td-selection {
-		border-right: 1px solid var(--c1);
-		height: 100vh;
-	}
-
-	.td-list {
-		.td-form {
-			align-items: center;
-			display: flex;
-
-			.td-input {
-				width: 100%;
-			}
-		}
-	}
+body {
+	font-family: Roboto, sans-serif;
 }

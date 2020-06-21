@@ -2,6 +2,7 @@
 import React from 'react';
 
 // app
+import FaceIcon from '@material-ui/icons/Face';
 import { dateFormat } from '../../utilities/helpers/Date';
 import AppOptions from '../../../app.config';
 
@@ -28,29 +29,41 @@ const TodoInfo = ({ todoList }) => {
 
 	return (
 		<div className="td-info">
-			<h1 className="td-intro">{ welcomeMessage() }</h1>
+			<div className="td-intro">
+				<h1>{ welcomeMessage() }</h1>
+				<div className="td-icon">
+					<FaceIcon fontSize="inherit" />
+				</div>
+			</div>
+
 			<div className="td-detail">
-				<p>Here is your today&apos;s breifing!</p>
+				<p>Here is today&apos;s breifing!</p>
 				<h3>
-					You have
+					There are
 					{' '}
 					<span>0 tasks</span>
 					{' '}
-					scheduled for Today.
+					scheduled for
+					{' '}
+					<b>Today</b>
+					.
 				</h3>
 				<h3>
 					There have been
 					{' '}
 					<span>4 new tasks added</span>
 					{' '}
-					since Yesterday
+					since
+					{' '}
+					<b>Yesterday</b>
+					.
 				</h3>
 				<h3>
 					There are total
 					{' '}
 					<span>400 tasks</span>
 					{' '}
-					left to complete
+					left to complete.
 				</h3>
 			</div>
 		</div>

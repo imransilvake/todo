@@ -2,15 +2,16 @@
 import React, { useEffect, useState } from 'react';
 
 // app
-import { Container } from '@material-ui/core';
-import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum';
+import './Todo.scss';
+import AppOptions from '../../../app.config';
+import firebase from '../../../firebase';
 import { dateIsBefore, dateIsSame, fbTimestampToDatetime } from '../../utilities/helpers/Date';
 import TodoInfo from './Todo-Info';
 import TodoFilter from './Todo-Filter';
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
-import AppOptions from '../../../app.config';
-import firebase from '../../../firebase';
+import { Container, Grid } from '@material-ui/core';
+import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum';
 
 const Todo = () => {
 	// initial state
@@ -144,42 +145,39 @@ const Todo = () => {
 
 	return (
 		<Container maxWidth="md">
-			<div className="td-todo">
+			<Grid container className="td-todo">
 				{/* Information */}
-				<div>
+				<Grid item xs={12} className="ts-info-wrapper">
 					<TodoInfo todoList={todoList} />
-				</div>
+				</Grid>
 
-				{/* Main Content */}
-				<div>
-					{/* Sidebar */}
-					<div span={5} className="td-selection">
-						<TodoFilter todoApplyFilter={todoApplyFilter} />
-					</div>
+				{/* Sidebar */}
+				<Grid item xs={12} sm={3}>
+					<TodoFilter todoApplyFilter={todoApplyFilter} />
+				</Grid>
 
-					{/* Content */}
-					<div span={19} className="td-list">
-						{/* Form */}
-						<section className="td-form-wrapper">
-							<TodoForm todoApplyOperation={todoApplyOperation}/>
-						</section>
+				{/* Content */}
+				<Grid item xs={12} sm={9}>
+					{/* Form */}
+					<section className="td-form-wrapper">
+						<TodoForm todoApplyOperation={todoApplyOperation} />
+					</section>
 
-						{/* List */}
-						<section className="td-list-wrapper">
-							{
-								todoList.filtered.map((todo, index) => (
-									<TodoItem
-										key={todo.id}
-										index={index}
-										todo={todo}
-										todoApplyOperation={todoApplyOperation}
-									/>
-								))
-							}
-						</section>
-					</div>
-				</div>
-			</div>
+					{/* List */}
+					<section className="td-list-wrapper">
+						{
+							todoList.filtered.map((todo, index) => (
+								<TodoItem
+									key={todo.id}
+									index={index}
+									todo={todo}
+									todoApplyOperation={todoApplyOperation}
+								/>
+							))
+						}
+					</section>
+				</Grid>
+			</Grid>
 		</Container>
 	);
 };
