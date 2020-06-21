@@ -55,16 +55,21 @@
 	}
 
 	.td-filters {
+		width: 90%;
+
 		ul {
 			list-style: none;
 			margin: 0;
 			padding: 0;
 
 			button {
+				border-radius: 0;
+				padding-left: 15px;
 				width: 100%;
 
 				&.td-disabled {
 					color: var(--c4);
+					background-color: var(--c1);
 				}
 
 				span {
@@ -76,25 +81,45 @@
 
 	.td-form {
 		.td-submit {
-			margin-top: 10px;
+			margin: 10px 0 30px;
 			text-align: right;
 		}
 	}
 
-	.td-list-item {
+	.td-item {
+		background-color: var(--c1);
+		border-radius: 5px;
+		margin-bottom: 20px;
+		padding: 0 15px 10px;
+
 		.td-created {
 			border-bottom: 1px solid var(--c1);
 			line-height: 0;
-			margin: 25px 0;
+			margin: 10px 0;
 			text-align: center;
 			width: 100%;
 
 			span {
 				background-color: var(--c2);
+				border-radius: 10px;
 				color: var(--c3);
-				font-size: fontSize(15px);
-				padding: 0 10px;
+				font-size: fontSize(14px);
+				font-weight: 500;
+				padding: 0 10px 2px;
 			}
+		}
+
+		.td-actions {
+			text-align: right;
+
+			button {
+				min-width: auto;
+				padding: 0;
+			}
+		}
+
+		.td-text {
+			color: var(--c3);
 		}
 	}
 }

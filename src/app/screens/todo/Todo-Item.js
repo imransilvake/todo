@@ -20,7 +20,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
  */
 const TodoItem = ({ todo, index, todoApplyOperation }) => {
 	return (
-		<div className="td-list-item">
+		<div className="td-item">
 			{/* created date */}
 			{!!todo.createdDate && !!todo.createdDate.seconds && (
 				<p className="td-created">
@@ -33,32 +33,50 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 				</p>
 			)}
 
+			{/* actions */}
+			<div className="td-actions">
+				{/* action: complete */}
+				{!todo.isCompleted && (
+					<Button
+						type="button"
+						onClick={
+							() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_COMPLETE)
+						}
+					>
+						<CheckBoxOutlineBlankIcon />
+					</Button>
+				)}
+
+				{/* action: undo */}
+				{todo.isCompleted && (
+					<Button
+						type="button"
+						onClick={
+							() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_UNDO)
+						}
+					>
+						<CheckBoxIcon />
+					</Button>
+				)}
+
+				{/* action: remove a specific item */}
+				<Button
+					type="button"
+					onClick={
+						() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_DELETE)
+					}
+				>
+					<DeleteForeverIcon />
+				</Button>
+			</div>
+
 			{/* Text */}
-			{todo.text}
+			<p className="td-text">{todo.text}</p>
 
 			{/* expire date */}
 			{!!todo.expireDate && !!todo.expireDate.seconds && (
 				<p>{ dateFormat(fbTimestampToDatetime(todo.expireDate.seconds)) }</p>
 			)}
-
-			{/* action: complete */}
-			{!todo.isCompleted && (
-				<Button type="button" onClick={() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_COMPLETE)}>
-					<CheckBoxOutlineBlankIcon />
-				</Button>
-			)}
-
-			{/* action: undo */}
-			{todo.isCompleted && (
-				<Button type="button" onClick={() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_UNDO)}>
-					<CheckBoxIcon />
-				</Button>
-			)}
-
-			{/* action: remove a specific item */}
-			<Button type="button" onClick={() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_DELETE)}>
-				<DeleteForeverIcon />
-			</Button>
 		</div>
 	);
 };

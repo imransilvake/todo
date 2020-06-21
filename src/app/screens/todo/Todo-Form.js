@@ -86,17 +86,15 @@ const TodoForm = ({ todoApplyOperation }) => {
 				<div className="td-submit">
 					<Button
 						type="submit"
-						variant="contained"
 						color="primary"
+						variant="contained"
 						disabled={!formValid()}
+						endIcon={loader && <CircularProgress size={20} />}
 					>
 						Add Task
 					</Button>
 				</div>
 			</form>
-
-			{/* Spinner */}
-			{ loader && <CircularProgress /> }
 		</>
 	);
 };

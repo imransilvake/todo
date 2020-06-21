@@ -4,10 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 // app
 import AppRouter from './AppRouter';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const App = () => {
 	return (
-		<React.Suspense fallback={<div><h1>Loading...</h1></div>}>
+		<React.Suspense fallback={<LinearProgress />}>
 			<BrowserRouter>
 				{/* Header */}
 
