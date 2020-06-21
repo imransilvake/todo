@@ -22,6 +22,7 @@ const Todo = () => {
 
 	// hook: todoList state
 	const [todoList, setTodoList] = useState(initialState);
+	const [todoFilter, setTodoFilter] = useState(TodoFilterEnum.FILTER_ALL);
 
 	// hook: on mount: fetch data from firebase
 	useEffect(() => {
@@ -36,11 +37,7 @@ const Todo = () => {
 				.then((snapshot) => {
 					// get list
 					const items = snapshot.docs
-						.sort((a, b) => {
-							if (a.data().createdDate > b.data().createdDate) return -1;
-							if (a.data().createdDate < b.data().createdDate) return 1;
-							return 0;
-						})
+						.sort((a, b) => b.data().createdDate - a.data().createdDate)
 						.map((doc) => ({ ...doc.data(), id: doc.id }));
 
 					// set list
@@ -88,13 +85,15 @@ const Todo = () => {
 					});
 				break;
 			case TodoCrudEnum.TODO_COMPLETE:
-			case TodoCrudEnum.TODO_UNDO:
+			case TodoCrudEnum.TODO_UNDO: {
+				const completed = type === TodoCrudEnum.TODO_COMPLETE;
 				await getFirestoreCollection(id)
-					.set({ ...todoItem, isCompleted: true })
+					.set({ ...todoItem, isCompleted: completed })
 					.then(() => {
-						newTodoList.original[index].isCompleted = (type === TodoCrudEnum.TODO_COMPLETE);
+						newTodoList.original[index].isCompleted = completed;
 					});
 				break;
+			}
 			case TodoCrudEnum.TODO_DELETE:
 				await getFirestoreCollection(id)
 					.delete()
@@ -104,8 +103,7 @@ const Todo = () => {
 		}
 
 		// apply filter to the list
-		// reset filter on addition of new item: ALL
-		todoApplyFilter(TodoFilterEnum.FILTER_ALL, newTodoList);
+		todoApplyFilter(todoFilter, newTodoList);
 	};
 
 	/**
@@ -113,8 +111,8 @@ const Todo = () => {
 	 * @param type
 	 * @param data
 	 */
-	const todoApplyFilter = (type, data = todoList) => {
-		const newTodoList = { ...data };
+	const todoApplyFilter = (type, data) => {
+		const newTodoList = !data ? { ...todoList } : { ...data };
 		switch (type) {
 			case TodoFilterEnum.FILTER_ALL:
 				newTodoList.filtered = newTodoList.original;
@@ -129,7 +127,7 @@ const Todo = () => {
 			case TodoFilterEnum.FILTER_PAST:
 				newTodoList.filtered = newTodoList.original.filter(
 					(t) => !t.isCompleted && dateIsBefore(
-						fbTimestampToDatetime(t.expireDate.seconds), 'day'
+						fbTimestampToDatetime(t.expireDate.seconds), null, 'day'
 					)
 				);
 				break;
@@ -141,6 +139,11 @@ const Todo = () => {
 
 		// set hook: todoList
 		setTodoList(newTodoList);
+
+		// set hook: setTodoFilter
+		if (!data) {
+			setTodoFilter(type);
+		}
 	};
 
 	return (
@@ -153,7 +156,10 @@ const Todo = () => {
 
 				{/* Sidebar */}
 				<Grid item xs={12} sm={3}>
-					<TodoFilter todoApplyFilter={todoApplyFilter} />
+					<TodoFilter
+						todoApplyFilter={todoApplyFilter}
+						todoFilter={todoFilter}
+					/>
 				</Grid>
 
 				{/* Content */}

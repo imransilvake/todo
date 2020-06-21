@@ -63,6 +63,10 @@
 			button {
 				width: 100%;
 
+				&.td-disabled {
+					color: var(--c4);
+				}
+
 				span {
 					justify-content: flex-start;
 				}
@@ -79,7 +83,7 @@
 
 	.td-list-item {
 		.td-created {
-			border-bottom: 1px solid var(--c3);
+			border-bottom: 1px solid var(--c1);
 			line-height: 0;
 			margin: 25px 0;
 			text-align: center;
@@ -87,6 +91,8 @@
 
 			span {
 				background-color: var(--c2);
+				color: var(--c3);
+				font-size: fontSize(15px);
 				padding: 0 10px;
 			}
 		}

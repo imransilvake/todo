@@ -12,15 +12,18 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 /**
  * display a list of filters
  * @param todoApplyFilter
+ * @param todoFilter
  * @returns {*}
  * @constructor
  */
-const TodoFilter = ({ todoApplyFilter }) => {
+const TodoFilter = ({ todoApplyFilter, todoFilter }) => {
 	return (
 		<div className="td-filters">
 			<ul>
 				<li>
 					<Button
+						classes={{ disabled: 'td-disabled' }}
+						disabled={todoFilter === TodoFilterEnum.FILTER_ALL}
 						onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_ALL)}
 						startIcon={<ImportContactsIcon />}
 					>
@@ -29,6 +32,8 @@ const TodoFilter = ({ todoApplyFilter }) => {
 				</li>
 				<li>
 					<Button
+						classes={{ disabled: 'td-disabled' }}
+						disabled={todoFilter === TodoFilterEnum.FILTER_TODAY}
 						onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_TODAY)}
 						startIcon={<TodayIcon />}
 					>
@@ -37,6 +42,8 @@ const TodoFilter = ({ todoApplyFilter }) => {
 				</li>
 				<li>
 					<Button
+						classes={{ disabled: 'td-disabled' }}
+						disabled={todoFilter === TodoFilterEnum.FILTER_PAST}
 						onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_PAST)}
 						startIcon={<EventNoteIcon />}
 					>
@@ -45,6 +52,8 @@ const TodoFilter = ({ todoApplyFilter }) => {
 				</li>
 				<li>
 					<Button
+						classes={{ disabled: 'td-disabled' }}
+						disabled={todoFilter === TodoFilterEnum.FILTER_COMPLETED}
 						onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_COMPLETED)}
 						startIcon={<DoneAllIcon />}
 					>

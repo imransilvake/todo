@@ -4,13 +4,18 @@ import AppOptions from '../../../app.config';
 import firebase from '../../../firebase';
 
 /**
- * date in string form
+ * date in moment
+ * @param date
+ * @returns {moment.Moment}
+ */
+const dateInMoment = (date) => (date ? moment(date) : moment());
+
+/**
+ * date in string
  * @param date
  * @returns {string}
  */
-const dateInString = (date) => {
-	return date.toString();
-};
+const dateInString = (date) => date.toString();
 
 /**
  * date format
@@ -36,12 +41,24 @@ const dateIsSame = (date, granularity) => {
 
 /**
  * validate: is before date
- * @param date
+ * @param date1
+ * @param date2
  * @param granularity
  * @returns {boolean}
  */
-const dateIsBefore = (date, granularity) => {
-	return moment(date).isBefore(moment(), granularity);
+const dateIsBefore = (date1, date2 = moment(), granularity) => {
+	return moment(date1).isBefore(date2, granularity);
+};
+
+/**
+ * validate: is after date
+ * @param date1
+ * @param date2
+ * @param granularity
+ * @returns {boolean}
+ */
+const dateIsAfter = (date1, date2 = moment(), granularity) => {
+	return moment(date1).isAfter(date2, granularity);
 };
 
 /**
@@ -66,10 +83,12 @@ const fbDatetimeToTimestamp = (value) => {
 };
 
 export {
+	dateInMoment,
 	dateInString,
 	dateFormat,
 	dateIsSame,
 	dateIsBefore,
+	dateIsAfter,
 	fbTimestampToDatetime,
 	fbDatetimeToTimestamp
 };

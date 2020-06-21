@@ -2,9 +2,12 @@
 import React from 'react';
 
 // app
-import FaceIcon from '@material-ui/icons/Face';
-import { dateFormat } from '../../utilities/helpers/Date';
 import AppOptions from '../../../app.config';
+import {
+	dateFormat, dateInMoment, dateIsAfter,
+	dateIsSame, fbTimestampToDatetime
+} from '../../utilities/helpers/Date';
+import FaceIcon from '@material-ui/icons/Face';
 
 /**
  * show general information about the tasks
@@ -27,6 +30,40 @@ const TodoInfo = ({ todoList }) => {
 		return `${greetings} Evening`;
 	};
 
+	/**
+	 * total tasks due for Today
+	 * @returns {number}
+	 */
+	const totalTasksDueForToday = () => (todoList && todoList.original ? (
+		todoList.original.filter(
+			(t) => !t.isCompleted && dateIsSame(
+				fbTimestampToDatetime(t.expireDate.seconds), 'day'
+			)
+		).length
+	) : 0);
+
+	/**
+	 * total tasks due from Yesterday
+	 * @returns {number}
+	 */
+	const totalDueTasksFromYesterday = () => (todoList && todoList.original ? (
+		todoList.original.filter(
+			(t) => !t.isCompleted && dateIsAfter(
+				fbTimestampToDatetime(t.createdDate.seconds), dateInMoment(
+					dateInMoment().subtract(1, 'day')
+				), 'day'
+			)
+		).length
+	) : 0);
+
+	/**
+	 * total pending tasks
+	 * @returns {number}
+	 */
+	const totalPendingTasks = () => (todoList && todoList.original ? (
+		todoList.original.filter((t) => !t.isCompleted).length
+	) : 0);
+
 	return (
 		<div className="td-info">
 			<div className="td-intro">
@@ -41,7 +78,11 @@ const TodoInfo = ({ todoList }) => {
 				<h3>
 					There are
 					{' '}
-					<span>0 tasks</span>
+					<span>
+						{totalTasksDueForToday()}
+						{' '}
+						tasks
+					</span>
 					{' '}
 					scheduled for
 					{' '}
@@ -51,9 +92,13 @@ const TodoInfo = ({ todoList }) => {
 				<h3>
 					There have been
 					{' '}
-					<span>4 new tasks added</span>
+					<span>
+						{totalDueTasksFromYesterday()}
+						{' '}
+						tasks
+					</span>
 					{' '}
-					since
+					due since
 					{' '}
 					<b>Yesterday</b>
 					.
@@ -61,7 +106,11 @@ const TodoInfo = ({ todoList }) => {
 				<h3>
 					There are total
 					{' '}
-					<span>400 tasks</span>
+					<span>
+						{totalPendingTasks()}
+						{' '}
+						tasks
+					</span>
 					{' '}
 					left to complete.
 				</h3>
