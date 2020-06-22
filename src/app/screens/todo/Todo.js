@@ -158,8 +158,7 @@ const Todo = () => {
 				<Grid item xs={12} sm={3}>
 					<TodoFilter
 						todoApplyFilter={todoApplyFilter}
-						todoFilter={todoFilter}
-					/>
+						todoFilter={todoFilter} />
 				</Grid>
 
 				{/* Content */}
@@ -177,8 +176,7 @@ const Todo = () => {
 									key={todo.id}
 									index={index}
 									todo={todo}
-									todoApplyOperation={todoApplyOperation}
-								/>
+									todoApplyOperation={todoApplyOperation} />
 							))
 						}
 					</section>

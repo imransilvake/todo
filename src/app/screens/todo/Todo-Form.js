@@ -61,15 +61,12 @@ const TodoForm = ({ todoApplyOperation }) => {
 					id="date"
 					type="date"
 					name="expireDate"
-					onChange={handleChange}
 					value={values.expireDate}
-					inputProps={{ min: dateFormat() }}
-				/>
+					onChange={handleChange}
+					inputProps={{ min: dateFormat() }} />
 
 				{/* Text */}
 				<TextField
-					label="Todo Description"
-					variant="outlined"
 					id="text"
 					type="text"
 					name="text"
@@ -77,10 +74,11 @@ const TodoForm = ({ todoApplyOperation }) => {
 					onChange={handleChange}
 					onBlur={handleChange}
 					error={!(values.text && values.text.length > 0) && errors !== 0}
+					label="Todo Description"
+					variant="outlined"
 					fullWidth
 					multiline
-					rows={3}
-				/>
+					rows={3} />
 
 				{/* Submit */}
 				<div className="td-submit">
@@ -89,8 +87,7 @@ const TodoForm = ({ todoApplyOperation }) => {
 						color="primary"
 						variant="contained"
 						disabled={!formValid()}
-						endIcon={loader && <CircularProgress size={20} />}
-					>
+						endIcon={loader && <CircularProgress size={20} />}>
 						Add Task
 					</Button>
 				</div>

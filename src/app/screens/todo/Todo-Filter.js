@@ -25,8 +25,7 @@ const TodoFilter = ({ todoApplyFilter, todoFilter }) => {
 						classes={{ disabled: 'td-disabled' }}
 						disabled={todoFilter === TodoFilterEnum.FILTER_ALL}
 						onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_ALL)}
-						startIcon={<ImportContactsIcon />}
-					>
+						startIcon={<ImportContactsIcon />}>
 						ALL
 					</Button>
 				</li>
@@ -35,8 +34,7 @@ const TodoFilter = ({ todoApplyFilter, todoFilter }) => {
 						classes={{ disabled: 'td-disabled' }}
 						disabled={todoFilter === TodoFilterEnum.FILTER_TODAY}
 						onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_TODAY)}
-						startIcon={<TodayIcon />}
-					>
+						startIcon={<TodayIcon />}>
 						DUE TODAY
 					</Button>
 				</li>
@@ -45,8 +43,7 @@ const TodoFilter = ({ todoApplyFilter, todoFilter }) => {
 						classes={{ disabled: 'td-disabled' }}
 						disabled={todoFilter === TodoFilterEnum.FILTER_PAST}
 						onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_PAST)}
-						startIcon={<EventNoteIcon />}
-					>
+						startIcon={<EventNoteIcon />}>
 						PAST DUE
 					</Button>
 				</li>
@@ -55,8 +52,7 @@ const TodoFilter = ({ todoApplyFilter, todoFilter }) => {
 						classes={{ disabled: 'td-disabled' }}
 						disabled={todoFilter === TodoFilterEnum.FILTER_COMPLETED}
 						onClick={() => todoApplyFilter(TodoFilterEnum.FILTER_COMPLETED)}
-						startIcon={<DoneAllIcon />}
-					>
+						startIcon={<DoneAllIcon />}>
 						COMPLETED
 					</Button>
 				</li>
