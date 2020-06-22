@@ -10,8 +10,8 @@ import TodoInfo from './Todo-Info';
 import TodoFilter from './Todo-Filter';
 import TodoForm from './Todo-Form';
 import TodoItem from './Todo-Item';
-import { Container, Grid } from '@material-ui/core';
 import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum';
+import { Container, Grid } from '@material-ui/core';
 
 const Todo = () => {
 	// initial state
@@ -64,19 +64,19 @@ const Todo = () => {
 
 	/**
 	 * apply CRUD operations
-	 * @param todo
 	 * @param type
+	 * @param data
 	 * @returns {Promise<void>}
 	 */
-	const todoApplyOperation = async (todo, type) => {
-		const { id, index, ...todoItem } = todo;
+	const todoApplyOperation = async (type, data) => {
+		const { id, index, ...todo } = data;
 		let newTodoList = { ...todoList };
 
 		// select and apply operation
 		switch (type) {
 			case TodoCrudEnum.TODO_ADD:
 				await getFirestoreCollection()
-					.add(todoItem)
+					.add(todo)
 					.then((result) => {
 						newTodoList = {
 							...todoList,
@@ -88,7 +88,7 @@ const Todo = () => {
 			case TodoCrudEnum.TODO_UNDO: {
 				const completed = type === TodoCrudEnum.TODO_COMPLETE;
 				await getFirestoreCollection(id)
-					.set({ ...todoItem, isCompleted: completed })
+					.set({ ...todo, isCompleted: completed })
 					.then(() => {
 						newTodoList.original[index].isCompleted = completed;
 					});
@@ -120,7 +120,7 @@ const Todo = () => {
 			case TodoFilterEnum.FILTER_TODAY:
 				newTodoList.filtered = newTodoList.original.filter(
 					(t) => !t.isCompleted && dateIsSame(
-						fbTimestampToDatetime(t.expireDate.seconds), 'day'
+						fbTimestampToDatetime(t.expireDate.seconds), null, 'day'
 					)
 				);
 				break;

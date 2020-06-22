@@ -37,7 +37,7 @@ const TodoInfo = ({ todoList }) => {
 	const totalTasksDueForToday = () => (todoList && todoList.original ? (
 		todoList.original.filter(
 			(t) => !t.isCompleted && dateIsSame(
-				fbTimestampToDatetime(t.expireDate.seconds), 'day'
+				fbTimestampToDatetime(t.expireDate.seconds), null, 'day'
 			)
 		).length
 	) : 0);

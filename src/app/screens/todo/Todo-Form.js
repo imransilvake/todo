@@ -50,7 +50,7 @@ const TodoForm = ({ todoApplyOperation }) => {
 		};
 
 		// add a new item
-		await todoApplyOperation(payload, TodoCrudEnum.TODO_ADD);
+		await todoApplyOperation(TodoCrudEnum.TODO_ADD, payload);
 	};
 
 	return (

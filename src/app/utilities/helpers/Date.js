@@ -31,12 +31,13 @@ const dateFormat = (date, format = AppOptions.date.formats.one) => {
 
 /**
  * validate: is same date
- * @param date
+ * @param date1
+ * @param date2
  * @param granularity
  * @returns {boolean}
  */
-const dateIsSame = (date, granularity) => {
-	return moment(date).isSame(moment(), granularity);
+const dateIsSame = (date1, date2, granularity) => {
+	return moment(date1).isSame(date2 || moment(), granularity);
 };
 
 /**
@@ -46,8 +47,8 @@ const dateIsSame = (date, granularity) => {
  * @param granularity
  * @returns {boolean}
  */
-const dateIsBefore = (date1, date2 = moment(), granularity) => {
-	return moment(date1).isBefore(date2, granularity);
+const dateIsBefore = (date1, date2, granularity) => {
+	return moment(date1).isBefore(date2 || moment(), granularity);
 };
 
 /**
@@ -57,8 +58,8 @@ const dateIsBefore = (date1, date2 = moment(), granularity) => {
  * @param granularity
  * @returns {boolean}
  */
-const dateIsAfter = (date1, date2 = moment(), granularity) => {
-	return moment(date1).isAfter(date2, granularity);
+const dateIsAfter = (date1, date2, granularity) => {
+	return moment(date1).isAfter(date2 || moment(), granularity);
 };
 
 /**
@@ -73,12 +74,12 @@ const fbTimestampToDatetime = (timestamp) => {
 
 /**
  * firebase: datetime to timestamp
- * @param value
+ * @param date
  * @returns {firebase.firestore.Timestamp}
  */
-const fbDatetimeToTimestamp = (value) => {
-	return value
-		? firebase.firestore.Timestamp.fromDate(moment(value).toDate())
+const fbDatetimeToTimestamp = (date) => {
+	return date
+		? firebase.firestore.Timestamp.fromDate(moment(date).toDate())
 		: firebase.firestore.Timestamp.now();
 };
 

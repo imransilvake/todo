@@ -40,7 +40,7 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 					<Button
 						type="button"
 						onClick={
-							() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_COMPLETE)
+							() => todoApplyOperation(TodoCrudEnum.TODO_COMPLETE, { ...todo, index })
 						}>
 						<CheckBoxOutlineBlankIcon />
 					</Button>
@@ -51,7 +51,7 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 					<Button
 						type="button"
 						onClick={
-							() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_UNDO)
+							() => todoApplyOperation(TodoCrudEnum.TODO_UNDO, { ...todo, index })
 						}>
 						<CheckBoxIcon />
 					</Button>
@@ -61,7 +61,7 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 				<Button
 					type="button"
 					onClick={
-						() => todoApplyOperation({ ...todo, index }, TodoCrudEnum.TODO_DELETE)
+						() => todoApplyOperation(TodoCrudEnum.TODO_DELETE, { ...todo, index })
 					}>
 					<DeleteForeverIcon />
 				</Button>
