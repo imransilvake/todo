@@ -10,9 +10,13 @@ import { useState } from 'react';
  * @returns {*}
  */
 const useForm = (valuesInitialState, formValidation, submitCallBack) => {
+	const errorInitialState = {
+		init: false
+	};
+
 	// hooks: values, errors, loader
 	const [values, setValues] = useState(valuesInitialState);
-	const [errors, setErrors] = useState({ init: true });
+	const [errors, setErrors] = useState(errorInitialState);
 	const [loader, setLoader] = useState(false);
 
 	/**
@@ -52,6 +56,9 @@ const useForm = (valuesInitialState, formValidation, submitCallBack) => {
 
 		// set values initial state
 		setValues(valuesInitialState);
+
+		// set errors initial state
+		setErrors(errorInitialState);
 	};
 
 	return [
