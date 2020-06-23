@@ -3,15 +3,16 @@ import { useState } from 'react';
 
 /**
  * custom hook: useForm
- * @param initialState
+ * handle change events of TextField and DatePicker and perform validation on the form
+ * @param valuesInitialState
  * @param formValidation
  * @param submitCallBack
  * @returns {*}
  */
-const useForm = (initialState, formValidation, submitCallBack) => {
-	// hook: values, errors, loader
-	const [values, setValues] = useState(initialState);
-	const [errors, setErrors] = useState(0);
+const useForm = (valuesInitialState, formValidation, submitCallBack) => {
+	// hooks: values, errors, loader
+	const [values, setValues] = useState(valuesInitialState);
+	const [errors, setErrors] = useState({ init: true });
 	const [loader, setLoader] = useState(false);
 
 	/**
@@ -49,11 +50,8 @@ const useForm = (initialState, formValidation, submitCallBack) => {
 		// stop loader
 		setLoader(false);
 
-		// initial state
-		setValues(initialState);
-
-		// set errors initial state
-		setErrors(0);
+		// set values initial state
+		setValues(valuesInitialState);
 	};
 
 	return [

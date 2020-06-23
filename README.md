@@ -6,7 +6,8 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 - [X] Use Functional Components and React Hooks
     - [X] useEffect
     - [X] useState
-    - [X] Custom Hook (useForm): to do form validation
+    - [X] Custom Hook
+        - useForm: handle change events of TextField and DatePicker and perform validation on the form
 - [X] Connect and Prepare Firebase Cloud Firestore database
 - [X] CRUD
     - [X] Create a todo item

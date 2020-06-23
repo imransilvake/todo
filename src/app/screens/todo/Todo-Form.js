@@ -29,11 +29,11 @@ const TodoForm = ({ todoApplyOperation }) => {
 	);
 
 	/**
-	 * check form state
+	 * validate invalid form
 	 * @returns {boolean}
 	 */
-	const formValid = () => {
-		return !(errors === 0 || Object.keys(errors).length > 0 || loader);
+	const formInvalid = () => {
+		return loader || (errors && Object.keys(errors).length > 0);
 	};
 
 	/**
@@ -73,9 +73,9 @@ const TodoForm = ({ todoApplyOperation }) => {
 					value={values.text}
 					onChange={handleChange}
 					onBlur={handleChange}
-					error={!(values.text && values.text.length > 0) && errors !== 0}
+					error={!!errors.text}
 					label="Todo Description"
-					variant="outlined"
+					variant="filled"
 					fullWidth
 					multiline
 					rows={3} />
@@ -86,7 +86,7 @@ const TodoForm = ({ todoApplyOperation }) => {
 						type="submit"
 						color="primary"
 						variant="contained"
-						disabled={!formValid()}
+						disabled={formInvalid()}
 						endIcon={loader && <CircularProgress size={20} />}>
 						Add Task
 					</Button>

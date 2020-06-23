@@ -20,11 +20,12 @@ const Todo = () => {
 		filtered: []
 	};
 
-	// hook: todoList state
+	// hooks: todoList state
 	const [todoList, setTodoList] = useState(initialState);
 	const [todoFilter, setTodoFilter] = useState(TodoFilterEnum.FILTER_ALL);
 
-	// hook: on mount: fetch data from firebase
+	// fetch data from firebase
+	// run only once when component is initialized
 	useEffect(() => {
 		/**
 		 * fetch todoList
@@ -40,7 +41,7 @@ const Todo = () => {
 						.sort((a, b) => b.data().createdDate - a.data().createdDate)
 						.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-					// set list
+					// set hook: todoList
 					setTodoList({
 						original: items,
 						filtered: items
