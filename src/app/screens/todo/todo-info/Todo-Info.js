@@ -51,7 +51,7 @@ const TodoInfo = ({ todoList }) => {
 		todoList.original.filter(
 			(t) => !t.isCompleted && dateIsAfter(
 				fbTimestampToDatetime(t.createdDate.seconds), dateInMoment(
-					dateInMoment().subtract(1, 'day')
+					dateInMoment().subtract(2, 'day')
 				), 'day'
 			)
 		).length
