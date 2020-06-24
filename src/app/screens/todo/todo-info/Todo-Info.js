@@ -2,11 +2,12 @@
 import React from 'react';
 
 // app
-import AppOptions from '../../../app.config';
+import './Todo-Info.scss';
+import AppOptions from '../../../../app.config';
 import {
 	dateFormat, dateInMoment, dateIsAfter,
 	dateIsSame, fbTimestampToDatetime
-} from '../../utilities/helpers/Date';
+} from '../../../utilities/helpers/Date';
 import FaceIcon from '@material-ui/icons/Face';
 
 /**
@@ -65,7 +66,7 @@ const TodoInfo = ({ todoList }) => {
 	) : 0);
 
 	return (
-		<div className="td-info">
+		<section className="td-info">
 			<div className="td-intro">
 				<h1>{ welcomeMessage() }</h1>
 				<div className="td-icon">
@@ -115,7 +116,7 @@ const TodoInfo = ({ todoList }) => {
 					left to complete.
 				</h3>
 			</div>
-		</div>
+		</section>
 	);
 };
 export default TodoInfo;

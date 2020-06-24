@@ -1,0 +1,16 @@
+.td-form {
+	// background-color on all form elements
+	.MuiFilledInput-root {
+		background-color: var(--c1);
+	}
+
+	.td-datepicker {
+		float: right;
+		margin-bottom: 5px;
+	}
+
+	.td-submit {
+		margin: 10px 0 20px;
+		text-align: right;
+	}
+}

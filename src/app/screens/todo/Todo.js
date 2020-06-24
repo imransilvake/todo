@@ -2,14 +2,13 @@
 import React, { useEffect, useState } from 'react';
 
 // app
-import './Todo.scss';
 import AppOptions from '../../../app.config';
 import firebase from '../../../firebase';
 import { dateIsBefore, dateIsSame, fbTimestampToDatetime } from '../../utilities/helpers/Date';
-import TodoInfo from './Todo-Info';
-import TodoFilter from './Todo-Filter';
-import TodoForm from './Todo-Form';
-import TodoItem from './Todo-Item';
+import TodoInfo from './todo-info/Todo-Info';
+import TodoFilter from './todo-filter/Todo-Filter';
+import TodoForm from './todo-form/Todo-Form';
+import TodoItem from './todo-item/Todo-Item';
 import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum';
 import { Container, Grid } from '@material-ui/core';
 
@@ -156,31 +155,33 @@ const Todo = () => {
 				</Grid>
 
 				{/* Sidebar */}
-				<Grid item xs={12} sm={3}>
-					<TodoFilter
-						todoApplyFilter={todoApplyFilter}
-						todoFilter={todoFilter} />
-				</Grid>
+				<Grid container spacing={2}>
+					<Grid item xs={12} sm={3}>
+						<TodoFilter
+							todoApplyFilter={todoApplyFilter}
+							todoFilter={todoFilter} />
+					</Grid>
 
-				{/* Content */}
-				<Grid item xs={12} sm={9}>
-					{/* Form */}
-					<section className="td-form-wrapper">
-						<TodoForm todoApplyOperation={todoApplyOperation} />
-					</section>
+					{/* Content */}
+					<Grid item xs={12} sm={9}>
+						{/* Form */}
+						<div className="td-form-wrapper">
+							<TodoForm todoApplyOperation={todoApplyOperation} />
+						</div>
 
-					{/* List */}
-					<section className="td-list-wrapper">
-						{
-							todoList.filtered.map((todo, index) => (
-								<TodoItem
-									key={todo.id}
-									index={index}
-									todo={todo}
-									todoApplyOperation={todoApplyOperation} />
-							))
-						}
-					</section>
+						{/* List */}
+						<div className="td-list-wrapper">
+							{
+								todoList.filtered.map((todo, index) => (
+									<TodoItem
+										key={todo.id}
+										index={index}
+										todo={todo}
+										todoApplyOperation={todoApplyOperation} />
+								))
+							}
+						</div>
+					</Grid>
 				</Grid>
 			</Grid>
 		</Container>

@@ -1,0 +1,50 @@
+@import '../../../../assets/scss/base/index';
+
+.td-info {
+	margin: 40px 0;
+
+	.td-intro {
+		align-items: center;
+		display: flex;
+
+		h1 {
+			font-size: fontSize(30px);
+			font-weight: 300;
+			line-height: 0;
+		}
+
+		.td-icon {
+			color: var(--c4);
+			display: inherit;
+			font-size: fontSize(30px);
+			margin-left: 5px;
+		}
+	}
+
+	.td-detail {
+		margin-top: 30px;
+
+		p {
+			color: var(--c3);
+			font-size: fontSize(15px);
+		}
+
+		h3 {
+			font-weight: 300;
+			margin: 15px 0;
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			span {
+				background-color: var(--c1);
+				border-radius: 15px;
+				color: var(--c3);
+				font-size: fontSize(16px);
+				font-weight: 400;
+				padding: 2px 8px;
+			}
+		}
+	}
+}

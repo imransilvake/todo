@@ -2,10 +2,11 @@
 import React from 'react';
 
 // app
-import { TodoCrudEnum } from './Todo.enum';
-import { dateFormat, fbDatetimeToTimestamp } from '../../utilities/helpers/Date';
+import './Todo-Form.scss';
+import { TodoCrudEnum } from '../Todo.enum';
+import { dateFormat, fbDatetimeToTimestamp } from '../../../utilities/helpers/Date';
 import TodoFormValidation from './Todo-Form-Validation';
-import useForm from '../../utilities/hooks/useForm';
+import useForm from '../../../utilities/hooks/useForm';
 import { TextField, CircularProgress, Button } from '@material-ui/core';
 
 /**
@@ -54,8 +55,8 @@ const TodoForm = ({ todoApplyOperation }) => {
 	};
 
 	return (
-		<>
-			<form noValidate onSubmit={handleSubmit} className="td-form">
+		<section className="td-form">
+			<form noValidate onSubmit={handleSubmit}>
 				{/* Date */}
 				<TextField
 					id="date"
@@ -63,7 +64,11 @@ const TodoForm = ({ todoApplyOperation }) => {
 					name="expireDate"
 					value={values.expireDate}
 					onChange={handleChange}
-					inputProps={{ min: dateFormat() }} />
+					inputProps={{ min: dateFormat() }}
+					className="td-datepicker"
+					variant="filled"
+					label="Due Date*"
+					size="small" />
 
 				{/* Text */}
 				<TextField
@@ -74,8 +79,8 @@ const TodoForm = ({ todoApplyOperation }) => {
 					onChange={handleChange}
 					onBlur={handleChange}
 					error={!!errors.text}
-					label="Todo Description"
 					variant="filled"
+					label="Todo Description*"
 					fullWidth
 					multiline
 					rows={3} />
@@ -92,7 +97,7 @@ const TodoForm = ({ todoApplyOperation }) => {
 					</Button>
 				</div>
 			</form>
-		</>
+		</section>
 	);
 };
 export default TodoForm;

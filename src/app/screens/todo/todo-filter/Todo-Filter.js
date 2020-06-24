@@ -2,7 +2,8 @@
 import React from 'react';
 
 // app
-import { TodoFilterEnum } from './Todo.enum';
+import './Todo-Filter.scss';
+import { TodoFilterEnum } from '../Todo.enum';
 import { Button } from '@material-ui/core';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import TodayIcon from '@material-ui/icons/Today';
@@ -18,7 +19,7 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
  */
 const TodoFilter = ({ todoApplyFilter, todoFilter }) => {
 	return (
-		<div className="td-filters">
+		<section className="td-filters">
 			<ul>
 				<li>
 					<Button
@@ -57,7 +58,7 @@ const TodoFilter = ({ todoApplyFilter, todoFilter }) => {
 					</Button>
 				</li>
 			</ul>
-		</div>
+		</section>
 	);
 };
 export default TodoFilter;

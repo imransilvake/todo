@@ -2,9 +2,10 @@
 import React from 'react';
 
 // app
-import AppOptions from '../../../app.config';
-import { TodoCrudEnum } from './Todo.enum';
-import { dateFormat, fbTimestampToDatetime } from '../../utilities/helpers/Date';
+import './Todo-Item.scss';
+import AppOptions from '../../../../app.config';
+import { TodoCrudEnum } from '../Todo.enum';
+import { dateFormat, fbTimestampToDatetime } from '../../../utilities/helpers/Date';
 import { Button } from '@material-ui/core';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
@@ -20,7 +21,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
  */
 const TodoItem = ({ todo, index, todoApplyOperation }) => {
 	return (
-		<div className="td-item">
+		<section className="td-item">
 			{/* created date */}
 			{!!todo.createdDate && !!todo.createdDate.seconds && (
 				<p className="td-created">
@@ -74,7 +75,7 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 			{!!todo.expireDate && !!todo.expireDate.seconds && (
 				<p>{ dateFormat(fbTimestampToDatetime(todo.expireDate.seconds)) }</p>
 			)}
-		</div>
+		</section>
 	);
 };
 export default TodoItem;
