@@ -19,7 +19,7 @@ const Todo = () => {
 		filtered: []
 	};
 
-	// hooks: todoList state
+	// hooks: todoList, todoFilter
 	const [todoList, setTodoList] = useState(initialState);
 	const [todoFilter, setTodoFilter] = useState(TodoFilterEnum.FILTER_ALL);
 
