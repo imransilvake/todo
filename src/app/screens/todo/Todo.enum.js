@@ -3,8 +3,7 @@
  */
 const TodoCrudEnum = {
 	TODO_ADD: 'ADD',
-	TODO_COMPLETE: 'COMPLETE',
-	TODO_UNDO: 'UNDO',
+	TODO_TOGGLE: 'TOGGLE',
 	TODO_DELETE: 'DELETE',
 	TODO_NONE: 'NONE'
 };

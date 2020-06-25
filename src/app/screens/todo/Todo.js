@@ -84,13 +84,11 @@ const Todo = () => {
 						};
 					});
 				break;
-			case TodoCrudEnum.TODO_COMPLETE:
-			case TodoCrudEnum.TODO_UNDO: {
-				const completed = type === TodoCrudEnum.TODO_COMPLETE;
+			case TodoCrudEnum.TODO_TOGGLE: {
 				await getFirestoreCollection(id)
-					.set({ ...todo, isCompleted: completed })
+					.set({ ...todo, isCompleted: !todo.isCompleted })
 					.then(() => {
-						newTodoList.original[index].isCompleted = completed;
+						newTodoList.original[index].isCompleted = !todo.isCompleted;
 					});
 				break;
 			}
@@ -165,22 +163,18 @@ const Todo = () => {
 					{/* Content */}
 					<Grid item xs={12} sm={9}>
 						{/* Form */}
-						<div className="td-form-wrapper">
-							<TodoForm todoApplyOperation={todoApplyOperation} />
-						</div>
+						<TodoForm todoApplyOperation={todoApplyOperation} />
 
 						{/* List */}
-						<div className="td-list-wrapper">
-							{
-								todoList.filtered.map((todo, index) => (
-									<TodoItem
-										key={todo.id}
-										index={index}
-										todo={todo}
-										todoApplyOperation={todoApplyOperation} />
-								))
-							}
-						</div>
+						{
+							todoList.filtered.map((todo, index) => (
+								<TodoItem
+									key={todo.id}
+									index={index}
+									todo={todo}
+									todoApplyOperation={todoApplyOperation} />
+							))
+						}
 					</Grid>
 				</Grid>
 			</Grid>

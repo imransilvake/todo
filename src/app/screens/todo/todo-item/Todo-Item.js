@@ -36,27 +36,15 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 
 			{/* actions */}
 			<div className="td-actions">
-				{/* action: complete */}
-				{!todo.isCompleted && (
-					<Button
-						type="button"
-						onClick={
-							() => todoApplyOperation(TodoCrudEnum.TODO_COMPLETE, { ...todo, index })
-						}>
-						<CheckBoxOutlineBlankIcon />
-					</Button>
-				)}
-
-				{/* action: undo */}
-				{todo.isCompleted && (
-					<Button
-						type="button"
-						onClick={
-							() => todoApplyOperation(TodoCrudEnum.TODO_UNDO, { ...todo, index })
-						}>
-						<CheckBoxIcon />
-					</Button>
-				)}
+				{/* action: toggle */}
+				<Button
+					type="button"
+					onClick={
+						() => todoApplyOperation(TodoCrudEnum.TODO_TOGGLE, { ...todo, index })
+					}>
+					{todo.isCompleted && (<CheckBoxIcon />) }
+					{!todo.isCompleted && (<CheckBoxOutlineBlankIcon />) }
+				</Button>
 
 				{/* action: remove a specific item */}
 				<Button
