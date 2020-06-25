@@ -12,7 +12,7 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 - [X] CRUD
     - [X] Create a todo item
     - [X] Fetch a todo list from firebase
-    - [X] Update an existing todo
+    - [X] Toggle a complete state of an existing todo
     - [X] Delete an existing todo
 - [X] Apply Filters to todo list
     - [X] Show All
