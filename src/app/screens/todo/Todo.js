@@ -9,6 +9,7 @@ import TodoInfo from './todo-info/Todo-Info';
 import TodoFilter from './todo-filter/Todo-Filter';
 import TodoForm from './todo-form/Todo-Form';
 import TodoItem from './todo-item/Todo-Item';
+import TodoSnackbar from './todo-snackbar/Todo-Snackbar';
 import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum';
 import { Container, Grid } from '@material-ui/core';
 
@@ -19,9 +20,10 @@ const Todo = () => {
 		filtered: []
 	};
 
-	// hooks: todoList, todoFilter
+	// hooks: todoList, todoFilter, setOpenSnackbar
 	const [todoList, setTodoList] = useState(initialState);
 	const [todoFilter, setTodoFilter] = useState(TodoFilterEnum.FILTER_ALL);
+	const [openSnackbar, setOpenSnackbar] = useState(false);
 
 	// fetch data from firebase
 	// run only once when component is initialized
@@ -69,7 +71,7 @@ const Todo = () => {
 	 * @returns {Promise<void>}
 	 */
 	const todoApplyOperation = async (type, data) => {
-		const { id, index, ...todo } = data;
+		const { id, ...todo } = data;
 		let newTodoList = { ...todoList };
 
 		// select and apply operation
@@ -78,24 +80,36 @@ const Todo = () => {
 				await getFirestoreCollection()
 					.add(todo)
 					.then((result) => {
+						// add item to the list
 						newTodoList = {
 							...todoList,
 							original: [{ ...todo, id: result.id }, ...todoList.original]
 						};
+
+						// set hook: openSnackbar
+						setOpenSnackbar(true);
 					});
 				break;
 			case TodoCrudEnum.TODO_TOGGLE: {
 				await getFirestoreCollection(id)
 					.set({ ...todo, isCompleted: !todo.isCompleted })
 					.then(() => {
-						newTodoList.original[index].isCompleted = !todo.isCompleted;
+						newTodoList.original = newTodoList.original.map(
+							(t) => (t.id === id ? {
+								...t, isCompleted: !todo.isCompleted
+							} : t)
+						);
 					});
 				break;
 			}
 			case TodoCrudEnum.TODO_DELETE:
 				await getFirestoreCollection(id)
 					.delete()
-					.then(() => newTodoList.original.splice(index, 1));
+					.then(() => {
+						newTodoList.original = newTodoList.original.filter(
+							(t) => t.id !== id
+						);
+					});
 				break;
 			default:
 		}
@@ -144,8 +158,30 @@ const Todo = () => {
 		}
 	};
 
+	/**
+	 * close snackbar
+	 * @param event
+	 * @param reason
+	 */
+	const todoCloseSnackbar = (event, reason) => {
+		// ignore outside slick
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		// undo a last added item
+		const target = event && event.target;
+		if (target && target.parentNode && target.parentNode.id === 'undo') {
+			todoApplyOperation(TodoCrudEnum.TODO_DELETE, todoList.filtered[0]);
+		}
+
+		// close snackbar
+		setOpenSnackbar(false);
+	};
+
 	return (
 		<Container maxWidth="md">
+			{/* Grid */}
 			<Grid container className="td-todo">
 				{/* Information */}
 				<Grid item xs={12} className="ts-info-wrapper">
@@ -172,12 +208,18 @@ const Todo = () => {
 									key={todo.id}
 									index={index}
 									todo={todo}
-									todoApplyOperation={todoApplyOperation} />
+									todoApplyOperation={todoApplyOperation}
+									openSnackbar={openSnackbar} />
 							))
 						}
 					</Grid>
 				</Grid>
 			</Grid>
+
+			{/* Snackbar */}
+			<TodoSnackbar
+				openSnackbar={openSnackbar}
+				todoCloseSnackbar={todoCloseSnackbar} />
 		</Container>
 	);
 };

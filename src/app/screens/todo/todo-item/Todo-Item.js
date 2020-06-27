@@ -14,20 +14,30 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 /**
  * display a single item
  * @param todo
- * @param index
  * @param todoApplyOperation
+ * @param openSnackbar
+ * @param index
  * @returns {*}
  * @constructor
  */
-const TodoItem = ({ todo, index, todoApplyOperation }) => {
+const TodoItem = ({
+	todo, todoApplyOperation, openSnackbar, index
+}) => {
 	return (
 		<section className="td-item">
 			{/* created date */}
-			{!!todo.createdDate && !!todo.createdDate.seconds && (
+			{todo.createdDate && todo.createdDate.seconds && todo.expireDate && todo.expireDate.seconds && (
 				<p className="td-created">
 					<span>
 						{dateFormat(
 							fbTimestampToDatetime(todo.createdDate.seconds),
+							AppOptions.date.formats.three
+						)}
+					</span>
+					<span className="td-symbol">&#8226;</span>
+					<span>
+						{dateFormat(
+							fbTimestampToDatetime(todo.expireDate.seconds),
 							AppOptions.date.formats.three
 						)}
 					</span>
@@ -40,29 +50,27 @@ const TodoItem = ({ todo, index, todoApplyOperation }) => {
 				<Button
 					type="button"
 					onClick={
-						() => todoApplyOperation(TodoCrudEnum.TODO_TOGGLE, { ...todo, index })
+						() => todoApplyOperation(TodoCrudEnum.TODO_TOGGLE, todo)
 					}>
 					{todo.isCompleted && (<CheckBoxIcon />) }
 					{!todo.isCompleted && (<CheckBoxOutlineBlankIcon />) }
 				</Button>
 
-				{/* action: remove a specific item */}
-				<Button
-					type="button"
-					onClick={
-						() => todoApplyOperation(TodoCrudEnum.TODO_DELETE, { ...todo, index })
-					}>
-					<DeleteForeverIcon />
-				</Button>
+				{/* actions: delete */}
+				{/* show delete button after snackbar is gone */}
+				{(!openSnackbar || (openSnackbar && index !== 0)) && (
+					<Button
+						type="button"
+						onClick={
+							() => todoApplyOperation(TodoCrudEnum.TODO_DELETE, todo)
+						}>
+						<DeleteForeverIcon />
+					</Button>
+				)}
 			</div>
 
 			{/* Text */}
 			<p className="td-text">{todo.text}</p>
-
-			{/* expire date */}
-			{!!todo.expireDate && !!todo.expireDate.seconds && (
-				<p>{ dateFormat(fbTimestampToDatetime(todo.expireDate.seconds)) }</p>
-			)}
 		</section>
 	);
 };

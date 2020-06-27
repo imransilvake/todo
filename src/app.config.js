@@ -6,7 +6,7 @@ const AppOptions = {
 		formats: {
 			one: 'YYYY-MM-DD',
 			two: 'HH',
-			three: 'dddd, MMMM Do'
+			three: 'Do, MMMM YYYY'
 		}
 	}
 };

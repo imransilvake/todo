@@ -3,9 +3,10 @@
 .td-item {
 	background-color: var(--c1);
 	border-bottom: 1px solid var(--c5);
-	border-radius: 5px;
-	margin-bottom: 20px;
-	padding: 0 15px 10px;
+	border-radius: 2px;
+	margin-bottom: 30px;
+	padding: 0 15px;
+	position: relative;
 
 	.td-created {
 		border-bottom: 1px solid var(--c1);
@@ -16,16 +17,21 @@
 
 		span {
 			background-color: var(--c2);
-			border-radius: 5px;
 			color: var(--c3);
 			font-size: fontSize(14px);
-			font-weight: 500;
-			padding: 0 10px 2px;
+			font-weight: 600;
+			padding: 0 10px 5px;
+
+			&.td-symbol {
+				padding: 0;
+			}
 		}
 	}
 
 	.td-actions {
-		text-align: right;
+		position: absolute;
+		right: 4px;
+		top: 4px;
 
 		button {
 			min-width: auto;
@@ -35,5 +41,6 @@
 
 	.td-text {
 		color: var(--c3);
+		padding: 20px 0 0;
 	}
 }
