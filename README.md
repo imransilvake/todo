@@ -19,12 +19,14 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
     - [X] Due Today
     - [X] Past Due
     - [X] Completed
-- [ ] Layout with Material-UI
+- [X] Layout with Material-UI
     - [X] Add Container over the project
     - [X] Add Grids to the layout
     - [X] Add TextField, Buttons and DatePicker, Divider
     - [X] Add LinearProgress to React Suspense fallback and on Form Submission
-    - [ ] Fix Responsiveness
+    - [X] Show a message on creation of a new todo using Snackbar
+        - [X] Hide delete button from newly added todo until snackbar is gone
+        - [X] Allow to undo the newly added todo
 
 
 ## Libraries and Frameworks

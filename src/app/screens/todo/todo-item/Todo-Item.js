@@ -16,12 +16,12 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
  * @param todo
  * @param todoApplyOperation
  * @param openSnackbar
- * @param index
+ * @param lastTodoId
  * @returns {*}
  * @constructor
  */
 const TodoItem = ({
-	todo, todoApplyOperation, openSnackbar, index
+	todo, todoApplyOperation, openSnackbar, lastTodoId
 }) => {
 	return (
 		<section className="td-item">
@@ -49,6 +49,7 @@ const TodoItem = ({
 				{/* action: toggle */}
 				<Button
 					type="button"
+					className="td-toggle"
 					onClick={
 						() => todoApplyOperation(TodoCrudEnum.TODO_TOGGLE, todo)
 					}>
@@ -58,9 +59,10 @@ const TodoItem = ({
 
 				{/* actions: delete */}
 				{/* show delete button after snackbar is gone */}
-				{(!openSnackbar || (openSnackbar && index !== 0)) && (
+				{(!openSnackbar || (openSnackbar && lastTodoId !== todo.id)) && (
 					<Button
 						type="button"
+						className="td-delete"
 						onClick={
 							() => todoApplyOperation(TodoCrudEnum.TODO_DELETE, todo)
 						}>
