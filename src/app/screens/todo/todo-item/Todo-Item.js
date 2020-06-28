@@ -6,6 +6,7 @@ import './Todo-Item.scss';
 import AppOptions from '../../../../app.config';
 import { TodoCrudEnum } from '../Todo.enum';
 import { dateFormat, fbTimestampToDatetime } from '../../../utilities/helpers/Date';
+import regexConvertUrlsToLinks from '../../../utilities/helpers/Regex';
 import { Button } from '@material-ui/core';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
@@ -72,7 +73,7 @@ const TodoItem = ({
 			</div>
 
 			{/* Text */}
-			<p className="td-text">{todo.text}</p>
+			<p className="td-text" dangerouslySetInnerHTML={{ __html: regexConvertUrlsToLinks(todo.text) }} />
 		</section>
 	);
 };

@@ -28,6 +28,7 @@
 		"react/jsx-indent-props": [2, "tab"],
 		"react/jsx-closing-bracket-location": [1, "after-props"],
 		"react/jsx-one-expression-per-line": [1],
-		"react/prop-types": 0
+		"react/prop-types": 0,
+		"react/no-danger": 0
 	}
 }
