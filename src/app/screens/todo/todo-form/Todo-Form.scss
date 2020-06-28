@@ -13,4 +13,11 @@
 		margin: 10px 0 20px;
 		text-align: right;
 	}
+
+	// media
+	@media (max-width: 400px) {
+		.td-datepicker {
+			width: 100%;
+		}
+	}
 }

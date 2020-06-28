@@ -1,6 +1,8 @@
 # Todo
 A to-do app can be a great reminder or starting point when it comes to CRUD in web development. Being able to read information, create new information, update existing information, and delete information can be powerful in any application.
 
+![Alt text](preview.png?raw=true "Todo App")
+
 
 ## Content
 - [X] Use Functional Components and React Hooks
@@ -19,12 +21,14 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
     - [X] Due Today
     - [X] Past Due
     - [X] Completed
-- [ ] Layout with Material-UI
+- [X] Layout with Material-UI
     - [X] Add Container over the project
     - [X] Add Grids to the layout
     - [X] Add TextField, Buttons and DatePicker, Divider
     - [X] Add LinearProgress to React Suspense fallback and on Form Submission
-    - [ ] Fix Responsiveness
+    - [X] Show a message on creation of a new todo using Snackbar
+        - [X] Hide delete button from newly added todo until snackbar is gone
+        - [X] Allow to undo the newly added todo
 
 
 ## Libraries and Frameworks

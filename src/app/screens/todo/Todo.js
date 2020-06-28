@@ -20,10 +20,11 @@ const Todo = () => {
 		filtered: []
 	};
 
-	// hooks: todoList, todoFilter, setOpenSnackbar
+	// hooks: todoList, todoFilter, openSnackbar, lastTodoId
 	const [todoList, setTodoList] = useState(initialState);
 	const [todoFilter, setTodoFilter] = useState(TodoFilterEnum.FILTER_ALL);
 	const [openSnackbar, setOpenSnackbar] = useState(false);
+	const [lastTodoId, setLastTodoId] = useState('');
 
 	// fetch data from firebase
 	// run only once when component is initialized
@@ -85,6 +86,9 @@ const Todo = () => {
 							...todoList,
 							original: [{ ...todo, id: result.id }, ...todoList.original]
 						};
+
+						// set hook: lastTodoId
+						setLastTodoId(result.id);
 
 						// set hook: openSnackbar
 						setOpenSnackbar(true);
@@ -152,7 +156,7 @@ const Todo = () => {
 		// set hook: todoList
 		setTodoList(newTodoList);
 
-		// set hook: setTodoFilter
+		// set hook: todoFilter
 		if (!data) {
 			setTodoFilter(type);
 		}
@@ -164,7 +168,7 @@ const Todo = () => {
 	 * @param reason
 	 */
 	const todoCloseSnackbar = (event, reason) => {
-		// ignore outside slick
+		// ignore outside click
 		if (reason === 'clickaway') {
 			return;
 		}
@@ -172,10 +176,14 @@ const Todo = () => {
 		// undo a last added item
 		const target = event && event.target;
 		if (target && target.parentNode && target.parentNode.id === 'undo') {
-			todoApplyOperation(TodoCrudEnum.TODO_DELETE, todoList.filtered[0]);
+			// get last added item
+			const todo = todoList.original.filter((t) => t.id === lastTodoId);
+
+			// delete item from the list
+			todoApplyOperation(TodoCrudEnum.TODO_DELETE, todo[0]);
 		}
 
-		// close snackbar
+		// set hook: openSnackbar
 		setOpenSnackbar(false);
 	};
 
@@ -203,12 +211,12 @@ const Todo = () => {
 
 						{/* List */}
 						{
-							todoList.filtered.map((todo, index) => (
+							todoList.filtered.map((todo) => (
 								<TodoItem
 									key={todo.id}
-									index={index}
 									todo={todo}
 									todoApplyOperation={todoApplyOperation}
+									lastTodoId={lastTodoId}
 									openSnackbar={openSnackbar} />
 							))
 						}

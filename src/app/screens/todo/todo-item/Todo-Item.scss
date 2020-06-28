@@ -17,12 +17,15 @@
 
 		span {
 			background-color: var(--c2);
+			border-radius: 20px;
 			color: var(--c3);
 			font-size: fontSize(14px);
-			font-weight: 600;
-			padding: 0 10px 5px;
+			font-weight: 500;
+			padding: 5px 10px;
 
 			&.td-symbol {
+				background-color: transparent;
+				border-radius: 0;
 				padding: 0;
 			}
 		}
@@ -36,11 +39,33 @@
 		button {
 			min-width: auto;
 			padding: 0;
+
+			&.td-toggle {
+				color: var(--c4);
+			}
+
+			&.td-delete {
+				color: var(--c6);
+			}
 		}
 	}
 
 	.td-text {
 		color: var(--c3);
 		padding: 20px 0 0;
+	}
+
+	// media
+	@media (max-width: 400px) {
+		.td-actions {
+			margin-top: 25px;
+			position: static;
+			text-align: center;
+		}
+
+		.td-text {
+			color: var(--c3);
+			padding-top: 0;
+		}
 	}
 }
