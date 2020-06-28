@@ -38,7 +38,6 @@ A to-do app can be a great reminder or starting point when it comes to CRUD in w
 - [X] [Firebase](https://firebase.google.com/)
 - [X] [Material-UI](https://material-ui.com/)
 - [X] [Moment](https://ant.design)
-- [X] [Translation](https://github.com/i18next/react-i18next)
 
 
 ## Information
