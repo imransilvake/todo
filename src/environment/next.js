@@ -1,6 +1,7 @@
+// app
+import appRoutes from './app-routes';
+
 const next = {
-	ROUTING: {
-		TODO: '/'
-	}
+	ROUTING: appRoutes
 };
 export default next;
