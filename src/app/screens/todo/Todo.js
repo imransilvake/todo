@@ -13,7 +13,6 @@ import TodoItem from './todo-item/Todo-Item';
 import TodoSnackbar from './todo-snackbar/Todo-Snackbar';
 import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum';
 import { Container, Grid } from '@material-ui/core';
-import FaceIcon from "@material-ui/icons/Face";
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
 const Todo = () => {
