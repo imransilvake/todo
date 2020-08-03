@@ -1,0 +1,23 @@
+@import '../../../assets/scss/base/index';
+
+.td-todo {
+	.td-empty-list {
+		align-items: center;
+		background-color: var(--c1);
+		display: flex;
+		justify-content: center;
+
+		h6 {
+			font-size: fontSize(15px);
+			font-weight: 500;
+			margin: 0;
+			padding: 10px 0;
+		}
+
+		.td-icon {
+			color: var(--c4);
+			font-size: fontSize(19px);
+			margin-left: 5px;
+		}
+	}
+}

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 // app
+import './Todo.scss';
 import AppOptions from '../../../app.config';
 import firebase from '../../../firebase';
 import { dateIsBefore, dateIsSame, fbTimestampToDatetime } from '../../utilities/helpers/Date';
@@ -12,6 +13,8 @@ import TodoItem from './todo-item/Todo-Item';
 import TodoSnackbar from './todo-snackbar/Todo-Snackbar';
 import { TodoCrudEnum, TodoFilterEnum } from './Todo.enum';
 import { Container, Grid } from '@material-ui/core';
+import FaceIcon from "@material-ui/icons/Face";
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
 const Todo = () => {
 	// initial state
@@ -192,7 +195,7 @@ const Todo = () => {
 			{/* Grid */}
 			<Grid container className="td-todo">
 				{/* Information */}
-				<Grid item xs={12} className="ts-info-wrapper">
+				<Grid item xs={12} className="td-info-wrapper">
 					<TodoInfo todoList={todoList} />
 				</Grid>
 
@@ -219,6 +222,16 @@ const Todo = () => {
 									lastTodoId={lastTodoId}
 									openSnackbar={openSnackbar} />
 							))
+						}
+
+						{/* Empty */}
+						{
+							todoList.filtered.length === 0 && (
+								<div className="td-empty-list">
+									<h6>Empty List</h6>
+									<EmojiEmotionsIcon fontSize="inherit" className="td-icon" />
+								</div>
+							)
 						}
 					</Grid>
 				</Grid>
