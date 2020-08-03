@@ -6,9 +6,9 @@ import './Error404.scss';
 
 const Error404 = () => {
 	return (
-		<section className="sc-404">
-			<h2>404</h2>
-			<p>Page Not Found</p>
+		<section className="cd-vh-center td-e404">
+			<h1>404</h1>
+			<p>Page not found</p>
 		</section>
 	);
 };

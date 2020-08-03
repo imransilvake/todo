@@ -1,16 +1,14 @@
-.sc-404 {
-	left: 0;
-	margin-top: -26px;
-	position: absolute;
-	right: 0;
-	text-align: center;
-	top: 50%;
+.td-e404 {
+	align-items: center;
+	display: flex;
 
-	h2 {
-		margin: 0;
+	h1 {
+		margin: 0 15px 0 0;
+		padding-right: 15px;
+		border-right: 1px solid var(--c5);
 	}
 
 	p {
-		margin: 5px 0 0;
+		margin: 0;
 	}
 }
