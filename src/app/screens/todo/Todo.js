@@ -18,8 +18,8 @@ import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 const Todo = () => {
 	// initial state
 	const initialState = {
-		original: [],
-		filtered: []
+		original: null,
+		filtered: null
 	};
 
 	// hooks: todoList, todoFilter, openSnackbar, lastTodoId
@@ -213,7 +213,7 @@ const Todo = () => {
 
 						{/* List */}
 						{
-							todoList.filtered.map((todo) => (
+							todoList.filtered && todoList.filtered.map((todo) => (
 								<TodoItem
 									key={todo.id}
 									todo={todo}
@@ -225,7 +225,7 @@ const Todo = () => {
 
 						{/* Empty */}
 						{
-							todoList.filtered.length === 0 && (
+							todoList.filtered && todoList.filtered.length === 0 && (
 								<div className="td-empty-list">
 									<h6>Empty List</h6>
 									<EmojiEmotionsIcon fontSize="inherit" className="td-icon" />
